@@ -22,7 +22,7 @@ class RecipientDetaileFactory extends Factory
             'barcode' => $this->faker->randomNumber(),
             'birthday' => $this->faker->date('Y-m-d'),
             'averageSalary' => $this->faker->randomFloat(),
-            'workFor' => $this->faker->company(),
+            'workFor' => substr($this->faker->company(), 0, 20),
             'passportNum' => $this->faker->randomNumber(),
             'socialStatus' => $this->faker->text(20),
             'residentType' => $this->faker->text(10),

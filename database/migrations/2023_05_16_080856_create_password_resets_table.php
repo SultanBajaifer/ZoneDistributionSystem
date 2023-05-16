@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -12,12 +13,11 @@ return new class extends Migration {
      */
     public function up()
     {
-        if (!Schema::hasTable('Packages')) {
-
-            Schema::table('Packages', function (Blueprint $table) {
-                $table->timestamps();
-            });
-        }
+        Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('email')->nullable();
+            $table->string('token')->nullable();
+            $table->dateTime('created_at')->nullable()->useCurrent();
+        });
     }
 
     /**
@@ -27,8 +27,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::table('Packages', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('password_resets');
     }
 };

@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-
-            $table->timestamp('email_verified_at')->nullable();
-            $table->rememberToken();
+        Schema::create('packages', function (Blueprint $table) {
+            $table->integer('id', true);
+            $table->string('name', 50)->nullable();
+            $table->string('note', 50)->nullable();
+            $table->dateTime('created_at')->nullable()->useCurrent();
+            $table->dateTime('updated_at')->nullable();
         });
     }
 
@@ -27,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('packages');
     }
 };

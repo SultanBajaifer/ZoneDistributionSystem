@@ -18,8 +18,8 @@ class AddressFactory extends Factory
     {
         return [
             'city' => $this->faker->city(),
-            'country' => $this->faker->country(),
-            'neighborhood' => $this->faker->streetAddress(),
+            'country' => substr($this->faker->country(), 0, 20),
+            'neighborhood' => substr($this->faker->streetAddress(), 0, 20)
 
         ];
     }
