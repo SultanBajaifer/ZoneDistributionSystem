@@ -21,6 +21,8 @@ class DistributionRecord extends JsonResource
             'recipientID' => $this->recipientID,
             'recrptionDate' => $this->recrptionDate,
             'state' => $this->state,
+            'recipientListID' => $this->recipientListID,
+            'recipientName' => $this->recipientName,
             'listName' => $this->listName,
             'distriputionPointName' => $this->distriputionPointName,
             'distriputerName' => $this->distriputerName,

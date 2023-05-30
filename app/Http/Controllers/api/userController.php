@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Models\User;
+use DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -30,6 +31,29 @@ class UserController extends Controller
         $user = UserResource::collection(User::paginate());
         return $user->response()->setStatusCode(200, "User Returned Succefully")->
             header("Addestionl Header", "true");
+    }
+    /**
+     * Search in the model.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function mySearch(Request $request)
+    {
+        $searchValue = isset($request->value) ? $request->value : 'name';
+        $searchAscOrDesc = $request->ascOrDesc == "desc" ? "DESC" : 'ASC';
+        // Select * from users where userName like
+        // '%$value%' order by users . userName DESC;
+        return $this->search(
+            'users',
+            $searchValue,
+            'userName',
+            $request->filter,
+            $searchAscOrDesc
+        );
+
+        // $result = DB::table('users')->where('userName', $request->value)->get()->toJson();
+        // return response()->json($result, 200);
     }
 
     /**
@@ -78,7 +102,7 @@ class UserController extends Controller
     public function show($id)
     {
 
-        $user = new UserResource(User::findOrFail($id));
+        $user = UserResource::make(User::findOrFail($id));
         return $user->response()->setStatusCode(200, "User Returned Succefully")->
             header("Addestionl Header", "true");
 
@@ -104,8 +128,8 @@ class UserController extends Controller
     public function update($id, Request $request)
     {
         $idUser = User::findOrFail($id);
-        $this->authorize("update", $idUser);
-        $user = new UserResource(User::findorFail($id));
+        // $this->authorize("update", $idUser);
+        $user = UserResource::make(User::findorFail($id));
         $user->update($request->all());
         return $user->response()->setStatusCode(200, "user Updated Succefully")->
             header("Addestionl Header", "true");
@@ -113,6 +137,7 @@ class UserController extends Controller
 
 
     }
+
 
     /**
      * Remove the specified resource from storage.

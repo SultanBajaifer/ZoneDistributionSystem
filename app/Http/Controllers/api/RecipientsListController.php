@@ -93,7 +93,7 @@ class RecipientsListController extends Controller
      * */
     public function show($id)
     {
-        $RecipientList = new RecipientListResource(RecipientsList::findOrFail($id));
+        $RecipientList = RecipientListResource::make(RecipientsList::findOrFail($id));
         return $RecipientList->response()->setStatusCode(200, "Recipient List Returned Succefully")->
             header("Addestionl Header", "true");
     }

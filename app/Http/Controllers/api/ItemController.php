@@ -24,6 +24,27 @@ class ItemController extends Controller
     }
 
     /**
+     * Search in the model.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function mySearch(Request $request)
+    {
+        $searchValue = isset($request->value) ? $request->value : 'name';
+        $searchAscOrDesc = $request->ascOrDesc == "desc" ? "DESC" : 'ASC';
+        return response()->json(
+            $this->search(
+                'items',
+                $searchValue,
+                'name',
+                $request->filter,
+                $searchAscOrDesc,
+            ),
+            200
+        );
+    }
+    /**
      * Show the form for creating a new resource.
      *
      */
@@ -43,6 +64,7 @@ class ItemController extends Controller
         $item = new ItemResource(Item::create($request->all()));
         return $item->response()->setStatusCode(200, "Items Created Succefully");
     }
+
 
     /**
      * Display the specified resource.
@@ -74,7 +96,7 @@ class ItemController extends Controller
      */
     public function update($id, Request $request)
     {
-        $Item = new ItemResource(Item::findOrFail($id));
+        $Item = ItemResource::make(Item::findOrFail($id));
         $Item->update($request->all());
         return $Item->response()->setStatusCode(200, "Item Updated Succefully")->
             header("Addestionl Header", "true");

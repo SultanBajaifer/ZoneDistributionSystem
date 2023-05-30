@@ -15,6 +15,7 @@ class RecipientDetaile extends Model
     protected $table = 'RecipientDetailes';
 
     protected $fillable = [
+        'id',
         'name',
         'phoneNum',
         'barcode',

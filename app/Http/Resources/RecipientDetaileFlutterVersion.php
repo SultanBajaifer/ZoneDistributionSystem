@@ -4,10 +4,23 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\DistributionRecord as DistributionRecordResource;
+// use App\Http\Resources\RecipientList as RecipientListResource;
+use App\Models\RecipientsList as RecipientListModel;
 
 
-class RecipientDetaile extends JsonResource
+
+class RecipientDetaileFlutterVersion extends JsonResource
 {
+    public string $MyListName;
+
+    public function __construct($resource, $listName)
+    {
+        parent::__construct($resource);
+        $this->MyListName = $listName;
+        // dd($this->MyListName);
+    }
+
+    // protected $list = $this->name;
     /**
      * Transform the resource into an array.
      *
@@ -16,6 +29,7 @@ class RecipientDetaile extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -24,14 +38,19 @@ class RecipientDetaile extends JsonResource
             'familyCount' => $this->familyCount,
             'addressID' => $this->addressID,
             'distriputionPointID' => $this->distriputionPointID,
-            'birthday' => $this->birthday,
+            'birthday' => $this->namebirthday,
             'averageSalary' => $this->averageSalary,
             'workFor' => $this->workFor,
             'passportNum' => $this->passportNum,
             'socialStatus' => $this->socialStatus,
             'residentType' => $this->residentType,
-            'image' => $this->image,
-            "Records" => DistributionRecordResource::collection($this->distriputionRecords),
+            'image' => $this->MyListName,
+            "Records" => DistributionRecordResource::collection(
+                $this->distriputionRecords->where(
+                    'listName',
+                    '=', $this->MyListName
+                )
+            )
 
 
         ];

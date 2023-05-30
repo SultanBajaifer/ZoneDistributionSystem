@@ -48,4 +48,16 @@ class DistributionPoint extends Model
     {
         return $this->hasMany(RecipientDetaile::class, 'distriputionPointID', 'id');
     }
+
+    /**
+     * Get all of the recipientList for the DistributionPoint
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function recipientsLists(): HasMany
+    {
+        return $this->hasMany(RecipientsList::class, 'distriputionPointID', 'id');
+    }
+
+
 }

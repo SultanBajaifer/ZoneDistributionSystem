@@ -4,11 +4,15 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\RecipientDetaile;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\ErrorCorrectionLevel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Picqer\Barcode\BarcodeGeneratorJPG;
 use Response;
 use App\Http\Resources\RecipientDetaile as RecipientDetaileResource;
-
+use Picqer\Barcode\BarcodeGenerator;
+use Picqer\Barcode\BarcodeGeneratorPNG;
 
 class RecipientDetaileController extends Controller
 {
@@ -39,9 +43,32 @@ class RecipientDetaileController extends Controller
      */
     public function store(Request $request)
     {
-        $RecipientDetaile = new RecipientDetaileResource(RecipientDetaile::create($request->all()));
+        $userCount = RecipientDetaile::count();
+
+        // Generate a unique barcode number for the new user
+        $barcodeNumber = 'RECIPIENT' . str_pad($userCount + 1, 7, '0', STR_PAD_BOTH);
+        $request->merge(['birthday' => now(), 'barcode' => $barcodeNumber]);
+        $RecipientDetaile = new RecipientDetaileResource(
+            RecipientDetaile::create(
+
+                $request->all()
+
+
+            )
+        );
+
+        $generator = new BarcodeGeneratorJPG();
+
+        // Generate barcode
+        $barcodeImage = $generator->getBarcode($barcodeNumber, $generator::TYPE_CODE_128, 2, 30);
+        // Save barcode image to file
+        file_put_contents(public_path('barcodes/' . $barcodeNumber . '.png'), $barcodeImage);
+        // file_put_contents(public_path('barcodes/' . $barcodeNumber . '.png'), $fileContents);
+
         return $RecipientDetaile->response()->setStatusCode(200, "Recipient Created Succefully");
     }
+
+
 
     /**
      * Display the specified resource.

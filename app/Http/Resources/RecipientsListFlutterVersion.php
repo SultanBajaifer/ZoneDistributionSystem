@@ -3,13 +3,16 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\RecipientDetaile as RecipientsResource;
+use App\Http\Resources\RecipientDetaileFlutterVersion as RecipientsResource;
 use App\Http\Resources\DistributionPoint as DistributionPointResource;
-use App\Http\Resources\Address as AddressResource;
+use App\Http\Resources\DistributionRecord as DistributionRecordResource;
 
 
-class RecipientList extends JsonResource
+class RecipientsListFlutterVersion extends JsonResource
 {
+    private $name;
+
+
     /**
      * Transform the resource into an array.
      *
@@ -18,16 +21,22 @@ class RecipientList extends JsonResource
      */
     public function toArray($request)
     {
+
+        $name = $this->name;
         return [
+
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => $name,
             'creationDate' => $this->creationDate,
             'state' => $this->state,
             'note' => $this->note,
             'is_send' => $this->is_send,
-            "recipients" => RecipientsResource::collection($this->Recipients),
             "distributionPoints" => DistributionPointResource::make($this->distributionPoint),
+            // 'recipients' => RecipientsResource::collection($this->Recipients, 'fouh'),
+            'records' => $this->distributionRecords,
+            // 'recipients' => RecipientsResource::collection($this->Recipients, $this->name),
 
+            // 'records' => $records,
         ];
     }
 }

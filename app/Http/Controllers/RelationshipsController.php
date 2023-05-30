@@ -129,6 +129,28 @@ class RelationshipsController extends Controller
         return Response::json(['data' => $filtered], 200);
     }
 
+
+    public function recupientListDistributionRecords($id)
+    {
+        $distributionRecords = RecipientsList::findOrFail($id)->distributionRecords;
+        $field = array();
+        $filtered = array();
+        foreach ($distributionRecords as $distributionRecord) {
+            $field['id'] = $distributionRecord->id;
+            $field['recipientID'] = $distributionRecord->recipientID;
+            $field['recrptionDate'] = $distributionRecord->recrptionDate;
+            $field['state'] = $distributionRecord->state;
+            $field['recipientName'] = $distributionRecord->recipientName;
+            $field['listName'] = $distributionRecord->listName;
+            $field['distriputionPointName'] = $distributionRecord->distriputionPointName;
+            $field['distriputerName'] = $distributionRecord->distriputerName;
+            $field['package'] = $distributionRecord->package;
+            $field['listName'] = $distributionRecord->listName;
+            $filtered[] = $field;
+        }
+        return Response::json(['data' => $filtered], 200);
+    }
+
     # RecipientDetails Functions
     public function recipientDetailsAddress($id)
     {

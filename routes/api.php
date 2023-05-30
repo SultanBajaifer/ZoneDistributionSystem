@@ -38,45 +38,51 @@ Route::group([
 
 
     Route::get(
-        'users/{id}/DistributionPoints',
+        'users/{id}/distributionPoints',
         'RelationshipsController@userDistributionPoints'
     );
     Route::get(
-        'users/{id}/Complaints',
+        'users/{id}/complaints',
         'RelationshipsController@userComplaints'
     );
     Route::get(
-        'users/{id}/Address',
+        'users/{id}/address',
         'RelationshipsController@userAddress'
     );
     Route::get(
-        'packages/{id}/Items',
+        'packages/{id}/items',
         'RelationshipsController@packageItems'
     );
     Route::get(
-        'Item/{id}/Package',
+        'items/{id}/package',
         'RelationshipsController@itemPackage'
     );
     Route::get(
-        'RecipientList/{id}/Recipient',
+        'recipientsList/{id}/recipient',
         'RelationshipsController@recupientListRecipients'
     );
     Route::get(
-        'RecipientList/{id}/DistributionPoints',
+        'recipientsList/{id}/distributionPoints',
         'RelationshipsController@recupientListDistributionPoints'
     );
     Route::get(
-        'RecipientDetails/{id}/Address',
+        'recipientsList/{id}/distributionRecords',
+        'RelationshipsController@recupientListDistributionRecords'
+    );
+    Route::get(
+        'recipientDetails/{id}/address',
         'RelationshipsController@recipientDetailsAddress'
     );
     Route::get(
-        'RecipientDetails/{id}/DistributionPoint',
+        'recipientDetails/{id}/distributionPoint',
         'RelationshipsController@recipientDetailsDistributionPoint'
     );
     Route::get(
-        'RecipientDetails/{id}/RecipientsList',
+        'recipientDetails/{id}/recipientsList',
         'RelationshipsController@recipientDetailsRecipientsList'
     );
+
+    Route::get('users/{value}', 'Api\UserController@mySearch');
     Route::apiResource('users', 'Api\UserController')->only([
         'index',
         'show',
@@ -90,20 +96,27 @@ Route::group([
         'show',
         'store'
     ]);
+    Route::get('items/search', 'api\ItemController@mySearch');
+    Route::get('search', 'api\BaseController@querySearch');
+    Route::get('Flutter/{id}', 'api\flutterController@sendRecipientsList');
     Route::apiResource('items', api\ItemController::class);
     Route::apiResource('packages', api\PackageController::class);
     Route::apiResource('distributionPoint', api\DistributionPointController::class);
-    Route::apiResource('RecipientDetailes', api\RecipientDetaileController::class);
-    Route::apiResource('RecipientList', api\RecipientsListController::class);
-    Route::apiResource('DistributionRecord', api\DistributionRecordController::class);
+    Route::apiResource('recipientDetailes', api\RecipientDetaileController::class);
+    Route::apiResource('recipientList', api\RecipientsListController::class);
+    Route::apiResource('distributionRecord', api\DistributionRecordController::class);
     // Route::put('users/{$id}', function ($id, Request $request) {
 //     $user = User::find($id);
 //     $user->update($request->all());
 //     return $user;
 // })->name('edit');
 
+    #################### Search Route ########################
 
 
-    Route::get('login', 'api\LoginController@login');
+
+
+
 });
 ##  Login Routse    ###
+Route::get('login', 'api\LoginController@login');

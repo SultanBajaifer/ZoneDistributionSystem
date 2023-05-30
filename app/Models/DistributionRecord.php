@@ -22,7 +22,7 @@ class DistributionRecord extends Model
         'packageName',
         'packageID'
     ];
-    protected $table = 'DistriputionRecords';
+    protected $table = 'distriputionrecords';
 
     /**
      * Get the recipientDetail that owns the DistributionRecord
@@ -44,6 +44,15 @@ class DistributionRecord extends Model
         return $this->belongsTo(Package::class, 'packageID', 'id');
     }
 
+    /**
+     * Get the recupientList that owns the DistributionRecord
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function recupientList(): BelongsTo
+    {
+        return $this->belongsTo(RecipientsList::class, 'recipientListID', 'id');
+    }
 
 
 }
