@@ -57,12 +57,12 @@ class RecipientDetaileController extends Controller
             )
         );
 
-        $generator = new BarcodeGeneratorJPG();
+        // $generator = new BarcodeGeneratorJPG();
 
-        // Generate barcode
-        $barcodeImage = $generator->getBarcode($barcodeNumber, $generator::TYPE_CODE_128, 2, 30);
-        // Save barcode image to file
-        file_put_contents(public_path('barcodes/' . $barcodeNumber . '.png'), $barcodeImage);
+        // // Generate barcode
+        // $barcodeImage = $generator->getBarcode($barcodeNumber, $generator::TYPE_CODE_128, 2, 30);
+        // // Save barcode image to file
+        // file_put_contents(public_path('barcodes/' . $barcodeNumber . '.png'), $barcodeImage);
         // file_put_contents(public_path('barcodes/' . $barcodeNumber . '.png'), $fileContents);
 
         return $RecipientDetaile->response()->setStatusCode(200, "Recipient Created Succefully");
