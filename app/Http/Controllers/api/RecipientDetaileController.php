@@ -70,7 +70,7 @@ class RecipientDetaileController extends Controller
             // Generate a unique barcode number for the new user
             $barcodeNumber = 'RECIPIENT' . str_pad($userCount + 1, 7, '0', STR_PAD_BOTH);
             $request->merge(['birthday' => now(), 'barcode' => $barcodeNumber]);
-            new RecipientDetaileResource(
+            $recipient = RecipientDetaileResource::make(
                 RecipientDetaile::create($request->all())
             );
 
@@ -82,6 +82,7 @@ class RecipientDetaileController extends Controller
             // file_put_contents(public_path('barcodes/' . $barcodeNumber . '.png'), $barcodeImage);
             // file_put_contents(public_path('barcodes/' . $barcodeNumber . '.png'), $fileContents);
             $i['message'] = "Recipient Created Succefully";
+            $i['new value'] = $recipient;
             $validator->setData($i);
             return $validator;
         }
@@ -141,6 +142,7 @@ class RecipientDetaileController extends Controller
             $RecipientDetaile = new RecipientDetaileResource(RecipientDetaile::findOrFail($id));
             $RecipientDetaile->update($request->all());
             $i['message'] = "Recipient Details Updated Succefully";
+            $i['new value'] = $RecipientDetaile;
             $validator->setData($i);
             return $validator;
         }

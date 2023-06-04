@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DistributionRecordFlutter as DistributionRecordResource;
+use App\Http\Resources\RecipientList;
 use App\Models\DistributionPoint;
 use App\Models\DistributionRecord;
 use App\Models\RecipientsList;

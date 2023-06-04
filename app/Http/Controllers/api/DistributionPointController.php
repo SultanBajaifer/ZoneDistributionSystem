@@ -53,6 +53,7 @@ class DistributionPointController extends Controller
             $DistributionPoint = new DistributionPointResource(DistributionPoint::create($request->all()));
             $i = $validator->getData(true);
             $i['message'] = "DistributionPoint Created Succefully";
+            $i['new value'] = $DistributionPoint;
             $validator->setData($i);
             return $validator;
         }
@@ -104,6 +105,7 @@ class DistributionPointController extends Controller
             $DistributionPoint = new DistributionPointResource(DistributionPoint::findOrFail($id));
             $DistributionPoint->update($request->all());
             $i['message'] = "Distribution Point Updated Succefully";
+            $i['new value'] = $DistributionPoint;
             $validator->setData($i);
             return $validator;
         }

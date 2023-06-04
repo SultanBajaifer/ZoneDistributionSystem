@@ -51,6 +51,7 @@ class PackageController extends Controller
             $i = $validator->getData(true);
             $Package = new PackageResource(Package::create($request->all()));
             $i['message'] = "Package Created Succefully";
+            $i['new value'] = $Package;
             $validator->setData($i);
             return $validator;
         }
@@ -100,6 +101,7 @@ class PackageController extends Controller
             $Package = new PackageResource(Package::findOrFail($id));
             $Package->update($request->all());
             $i['message'] = "Package Updated Succefully";
+            $i['new value'] = $Package;
             $validator->setData($i);
             return $validator;
         }

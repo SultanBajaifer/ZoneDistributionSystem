@@ -75,23 +75,34 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // $this->authorize('create', User::class);
-        // $request->validate([
-        //     'name' => 'required',
-        //     'userName' => 'required',
-        //     'userType' => 'required',
-        //     'password' => 'required',
-        //     'email' => 'required',
-        //     'addressID' => 'required'
-        // ]);
-        $user = new UserResource(User::create([
-            'name' => $request->name,
-            'userName' => $request->userName,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'addressID' => $request->addressID,
-            'userType' => $request->userType
-        ]));
-        return $user->response()->setStatusCode(200, "User Created Succefully");
+
+        $validator = $this->validate(
+            $request,
+            [
+                'name' => 'required',
+                'userName' => 'required',
+                'userType' => 'required',
+                'password' => 'required',
+                'email' => 'required',
+                'addressID' => 'required'
+            ]
+        );
+        if ($validator->getData()->success) {
+            $i = $validator->getData(true);
+            $user = UserResource::make(User::create([
+                'name' => $request->name,
+                'userName' => $request->userName,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'addressID' => $request->addressID,
+                'userType' => $request->userType
+            ]));
+            $i['message'] = "User Created Succefully";
+            $i['new value'] = $user;
+            $validator->setData($i);
+            return $validator;
+        }
+        return $validator;
     }
 
     /**
@@ -127,12 +138,36 @@ class UserController extends Controller
      */
     public function update($id, Request $request)
     {
-        $idUser = User::findOrFail($id);
-        // $this->authorize("update", $idUser);
-        $user = UserResource::make(User::findorFail($id));
-        $user->update($request->all());
-        return $user->response()->setStatusCode(200, "user Updated Succefully")->
-            header("Addestionl Header", "true");
+        $validator = $this->validate(
+            $request,
+            [
+                'name' => 'required',
+                'userName' => 'required',
+                'userType' => 'required',
+                'password' => 'required',
+                'email' => 'required',
+                'addressID' => 'required'
+            ]
+        );
+        if ($validator->getData()->success) {
+            $i = $validator->getData(true);
+            // $idUser = User::findOrFail($id);
+            // $this->authorize("update", $idUser);
+            $user = UserResource::make(User::findorFail($id));
+            $user->update([
+                'name' => $request->name,
+                'userName' => $request->userName,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'addressID' => $request->addressID,
+                'userType' => $request->userType
+            ]);
+            $i['message'] = "user Updated Succefully";
+            $i['new value'] = $user;
+            $validator->setData($i);
+            return $validator;
+        }
+        return $validator;
 
 
 

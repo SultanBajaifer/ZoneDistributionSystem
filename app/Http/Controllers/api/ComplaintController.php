@@ -68,6 +68,7 @@ class ComplaintController extends Controller
                 Mail::to($email)->send(new ComplaintMail($request->only(['email', 'complainterName'])));
                 $i = $validator->getData(true);
                 $i['message'] = 'Thank you for subscribing to our email, please check your inbox';
+                $i['new value'] = $Complaint;
                 $validator->setData($i);
                 return $validator;
             }

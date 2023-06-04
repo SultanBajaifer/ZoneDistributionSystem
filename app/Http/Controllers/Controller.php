@@ -15,20 +15,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function search($model, $value, $name = 'name', $filter = null, $ascOrDesc = 'ASC')
-    {
-        $query = "SELECT * FROM `$model` WHERE `$name` LIKE '%$value%'";
-        $filter != null ? $query .= "ORDER BY `$model`.`$filter`" : $query;
 
-        $ascOrDesc != 'ASC' ? $query .= "DESC" : $query;
-        $result = DB::select($query);
-        // $result = DB::table($model)
-        //     ->where($name, 'like', '%$value%')
-        //     ->orderBy($filter, $ascOrDesc)
-        //     ->get();
-
-        return $result;
-    }
     public function validate(Request $request, array $defaultArray)
     {
 
@@ -49,6 +36,21 @@ class Controller extends BaseController
 
 
         ], 200);
+    }
+    public function search($model, $value, $name = 'name', $filter = null, $ascOrDesc = 'ASC')
+    {
+
+        $query = "SELECT * FROM `$model` WHERE `$name` LIKE '%$value%'";
+        $filter != null ? $query .= "ORDER BY `$model`.`$filter`" : $query;
+
+        $ascOrDesc != 'ASC' ? $query .= "DESC" : $query;
+        $result = DB::select($query);
+        // $result = DB::table($model)
+        //     ->where($name, 'like', '%$value%')
+        //     ->orderBy($filter, $ascOrDesc)
+        //     ->get();
+
+        return $result;
     }
 
 
