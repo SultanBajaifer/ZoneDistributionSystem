@@ -11,14 +11,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class RecipientsList extends Model
 {
     use HasFactory;
-    protected $table = 'RecipientsList';
+    protected $table = 'recipientslist';
 
     protected $fillable = [
+        'id',
         'name',
         'creationDate',
         'state',
         'note',
-        'distributionPointID',
+        'distriputionPointID',
         'is_send'
 
     ];
@@ -43,7 +44,7 @@ class RecipientsList extends Model
      */
     public function distributionPoint(): BelongsTo
     {
-        return $this->belongsTo(DistributionPoint::class, 'distributionPointID');
+        return $this->belongsTo(DistributionPoint::class, 'distriputionPointID');
     }
 
     /**

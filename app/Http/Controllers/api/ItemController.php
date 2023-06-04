@@ -22,28 +22,6 @@ class ItemController extends Controller
         return $item->response()->setStatusCode(200, "Items Returned Succefully")->
             header("Addestionl Header", "true");
     }
-
-    /**
-     * Search in the model.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function mySearch(Request $request)
-    {
-        $searchValue = isset($request->value) ? $request->value : 'name';
-        $searchAscOrDesc = $request->ascOrDesc == "desc" ? "DESC" : 'ASC';
-        return response()->json(
-            $this->search(
-                'items',
-                $searchValue,
-                'name',
-                $request->filter,
-                $searchAscOrDesc,
-            ),
-            200
-        );
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -61,8 +39,23 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        $item = new ItemResource(Item::create($request->all()));
-        return $item->response()->setStatusCode(200, "Items Created Succefully");
+        $validator = $this->validate(
+            $request,
+            [
+                'name' => 'required',
+                'quentity' => 'required',
+                'unit' => 'required',
+                'packageID' => 'required',
+            ]
+        );
+        if ($validator->getData()->success) {
+            $i = $validator->getData(true);
+            $item = new ItemResource(Item::create($request->all()));
+            $i['message'] = "Item Created Succefully";
+            $validator->setData($i);
+            return $validator;
+        }
+        return $validator;
     }
 
 
@@ -96,10 +89,24 @@ class ItemController extends Controller
      */
     public function update($id, Request $request)
     {
-        $Item = ItemResource::make(Item::findOrFail($id));
-        $Item->update($request->all());
-        return $Item->response()->setStatusCode(200, "Item Updated Succefully")->
-            header("Addestionl Header", "true");
+        $validator = $this->validate(
+            $request,
+            [
+                'name' => 'required',
+                'quentity' => 'required',
+                'unit' => 'required',
+                'packageID' => 'required',
+            ]
+        );
+        if ($validator->getData()->success) {
+            $i = $validator->getData(true);
+            $Item = ItemResource::make(Item::findOrFail($id));
+            $Item->update($request->all());
+            $i['message'] = "Item Updated Succefully";
+            $validator->setData($i);
+            return $validator;
+        }
+        return $validator;
     }
 
     /**

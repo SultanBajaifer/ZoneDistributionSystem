@@ -19,6 +19,7 @@ class ItemFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'quentity' => $this->faker->numberBetween(),
+            'packageID' => $this->faker->numberBetween(1, 20),
             'unit' => $this->faker->text(20),
         ];
     }

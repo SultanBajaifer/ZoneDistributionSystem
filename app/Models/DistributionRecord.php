@@ -16,9 +16,11 @@ class DistributionRecord extends Model
         'recipientID',
         'recrptionDate',
         'state',
-        'listName',
+        'recipientListID',
+        'recipientName',
         'distriputionPointName',
         'distriputerName',
+        'listName',
         'packageName',
         'packageID'
     ];
@@ -29,7 +31,7 @@ class DistributionRecord extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function recipientDetail(): BelongsTo
+    public function recipientDetails(): BelongsTo
     {
         return $this->belongsTo(RecipientDetaile::class, 'recipientID', 'id');
     }

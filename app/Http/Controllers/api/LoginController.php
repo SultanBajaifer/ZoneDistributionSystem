@@ -21,6 +21,10 @@ class LoginController extends BaseController
     {
         $AccessToken = Auth::user()->createToken('Access Token')->accessToken;
 
-        return Response(['user' => new UserResource(Auth::user()), 'Access Token' => $AccessToken]);
+        return Response([
+            'user' => new UserResource(Auth::user())
+            ,
+            'Access Token' => $AccessToken
+        ]);
     }
 }

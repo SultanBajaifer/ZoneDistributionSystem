@@ -20,8 +20,8 @@ class DistributionPointFactory extends Factory
             'name' => $this->faker->text(20),
             'state' => $this->faker->text(12),
             'creation_date' => now(),
-            'userID' => $this->faker->numberBetween(1010, 1023),
-            'addressID' => $this->faker->numberBetween(1, 23),
+            'userID' => $this->faker->numberBetween(1, 20),
+            'addressID' => $this->faker->numberBetween(1, 20),
         ];
     }
 }

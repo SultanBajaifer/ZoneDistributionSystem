@@ -22,6 +22,7 @@ class DistributionPoint extends JsonResource
             'state' => $this->state,
             'creation_date' => $this->creation_date,
             'userID' => $this->userID,
+            'addressDistriputions' => $this->addressDistriputions,
             "address" => AddressResource::make($this->address),
         ];
     }

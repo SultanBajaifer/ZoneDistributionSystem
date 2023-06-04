@@ -7,7 +7,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use Request;
+use Illuminate\Http\Request;
+use Response;
+use Illuminate\Support\Facades\Validator;
 
 class Controller extends BaseController
 {
@@ -26,6 +28,27 @@ class Controller extends BaseController
         //     ->get();
 
         return $result;
+    }
+    public function validate(Request $request, array $defaultArray)
+    {
+
+        $validator = Validator::make($request->all(), $defaultArray);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            return Response::json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'tip' => 'please follow the syntax',
+                'Syntax' => $defaultArray
+            ], 400);
+        }
+        return Response::json([
+            'success' => true,
+            'message' => 'Completed',
+
+
+        ], 200);
     }
 
 

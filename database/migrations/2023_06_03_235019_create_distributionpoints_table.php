@@ -13,18 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('distributionpoints', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('name', 50)->nullable();
-            $table->string('userName', 50)->nullable();
-            $table->string('password', 353)->nullable();
-            $table->string('email', 50)->nullable();
-            $table->integer('userType')->nullable();
-            $table->integer('addressID')->nullable();
+            $table->string('state', 12)->nullable()->default('Active');
+            $table->string('addressDistriputions', 535)->nullable();
+            $table->dateTime('creation_date')->nullable()->useCurrent();
+            $table->integer('userID')->nullable()->index('FK_DistributionPoints_users');
+            $table->integer('addressID')->nullable()->index('FK_DistributionPoints_Addresses');
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable();
-            $table->dateTime('email_verified_at')->nullable();
-            $table->rememberToken();
         });
     }
 
@@ -35,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('distributionpoints');
     }
 };

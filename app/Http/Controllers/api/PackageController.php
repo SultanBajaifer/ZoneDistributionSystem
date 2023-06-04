@@ -40,8 +40,21 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-        $Package = new PackageResource(Package::create($request->all()));
-        return $Package->response()->setStatusCode(200, "Package Created Succefully");
+        $validator = $this->validate(
+            $request,
+            [
+                'name' => 'required',
+                'note' => 'required',
+            ]
+        );
+        if ($validator->getData()->success) {
+            $i = $validator->getData(true);
+            $Package = new PackageResource(Package::create($request->all()));
+            $i['message'] = "Package Created Succefully";
+            $validator->setData($i);
+            return $validator;
+        }
+        return $validator;
     }
 
     /**
@@ -75,10 +88,22 @@ class PackageController extends Controller
      */
     public function update($id, Request $request)
     {
-        $Package = new PackageResource(Package::findOrFail($id));
-        $Package->update($request->all());
-        return $Package->response()->setStatusCode(200, "Package Updated Succefully")->
-            header("Addestionl Header", "true");
+        $validator = $this->validate(
+            $request,
+            [
+                'name' => 'required',
+                'note' => 'required',
+            ]
+        );
+        if ($validator->getData()->success) {
+            $i = $validator->getData(true);
+            $Package = new PackageResource(Package::findOrFail($id));
+            $Package->update($request->all());
+            $i['message'] = "Package Updated Succefully";
+            $validator->setData($i);
+            return $validator;
+        }
+        return $validator;
     }
 
     /**

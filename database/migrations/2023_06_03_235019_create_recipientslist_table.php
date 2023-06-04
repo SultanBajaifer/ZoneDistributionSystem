@@ -14,12 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('recipientslist', function (Blueprint $table) {
-            $table->integer('id', true);
-            $table->string('name', 50)->nullable();
-            $table->dateTime('creationDate')->nullable();
+            $table->bigInteger('id', true);
+            $table->string('name', 50)->nullable()->unique('name');
+            $table->dateTime('creationDate')->nullable()->useCurrent();
             $table->string('state', 50)->nullable();
             $table->string('note', 353)->nullable();
-            $table->integer('distributionPointID');
+            $table->tinyInteger('is_send')->nullable()->default(0);
+            $table->integer('distriputionPointID')->nullable()->index('distriputionPointID');
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable();
         });

@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+use DB;
+use Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -17,16 +20,24 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $i = 0;
+        if (DB::table('users')->count() > 0) {
+            $i = 1;
+            $name = 'Hamza';
+            $userName = 'Admin';
+        } else {
+            $i = 0;
+            $name = $this->faker->name();
+            $userName = $this->faker->name();
+        }
         return [
-            'name' => $this->faker->name(),
-            'userName' => $this->faker->name(),
-            'password' => $this->faker->password(6, 16),
+            'name' => $name,
+            'userName' => $userName,
+            'password' => Hash::make('password'),
             // password
             'email' => $this->faker->unique()->safeEmail(),
-            'userType' => 0,
+            'userType' => $i,
             'addressID' => $this->faker->numberBetween(10, 20),
-            'email_verified_at' => now(),
-            'remember_token' => Str::random(1, 10),
         ];
     }
 

@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -13,15 +14,15 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('recipientdetailes', function (Blueprint $table) {
-            $table->integer('id')->nullable();
+            $table->integer('id', true);
             $table->string('name', 50)->nullable();
             $table->bigInteger('phoneNum')->nullable();
-            $table->string('barcode')->unique()->nullable();
+            $table->string('barcode', 535)->nullable()->unique('barcode');
             $table->integer('familyCount')->nullable();
-            $table->integer('addressID')->nullable();
-            $table->integer('distriputionPointID')->nullable();
+            $table->integer('addressID')->nullable()->index('FK_RecipientDetailes_Addresses');
+            $table->integer('distriputionPointID')->nullable()->index('distriputionPointID');
             $table->date('birthday')->nullable();
-            $table->float('averageSalary', 10, 0)->nullable();
+            $table->double('averageSalary')->nullable();
             $table->string('workFor', 20)->nullable();
             $table->bigInteger('passportNum')->nullable();
             $table->string('socialStatus', 20)->nullable();

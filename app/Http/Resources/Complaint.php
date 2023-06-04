@@ -17,6 +17,7 @@ class Complaint extends JsonResource
         return [
             'complainterName' => $this->complainterName,
             'discription' => $this->discription,
+            'email' => $this->email,
             'userID' => $this->userID,
             'date' => $this->date
         ];

@@ -96,15 +96,18 @@ Route::group([
         'show',
         'store'
     ]);
-    Route::get('items/search', 'api\ItemController@mySearch');
     Route::get('search', 'api\BaseController@querySearch');
     Route::get('Flutter/{id}', 'api\flutterController@sendRecipientsList');
+    Route::post('FlutterDelever', 'api\flutterController@reciveRecipientsList');
     Route::apiResource('items', api\ItemController::class);
     Route::apiResource('packages', api\PackageController::class);
     Route::apiResource('distributionPoint', api\DistributionPointController::class);
     Route::apiResource('recipientDetailes', api\RecipientDetaileController::class);
-    Route::apiResource('recipientList', api\RecipientsListController::class);
-    Route::apiResource('distributionRecord', api\DistributionRecordController::class);
+    Route::apiResource('recipientsList', api\RecipientsListController::class);
+    Route::apiResource('distributionRecord', api\DistributionRecordController::class)->only([
+        'index',
+        'show'
+    ]);
     // Route::put('users/{$id}', function ($id, Request $request) {
 //     $user = User::find($id);
 //     $user->update($request->all());

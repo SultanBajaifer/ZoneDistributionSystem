@@ -13,6 +13,7 @@ use Response;
 use App\Http\Resources\RecipientDetaile as RecipientDetaileResource;
 use Picqer\Barcode\BarcodeGenerator;
 use Picqer\Barcode\BarcodeGeneratorPNG;
+use Str;
 
 class RecipientDetaileController extends Controller
 {
@@ -43,29 +44,48 @@ class RecipientDetaileController extends Controller
      */
     public function store(Request $request)
     {
-        $userCount = RecipientDetaile::count();
-
-        // Generate a unique barcode number for the new user
-        $barcodeNumber = 'RECIPIENT' . str_pad($userCount + 1, 7, '0', STR_PAD_BOTH);
-        $request->merge(['birthday' => now(), 'barcode' => $barcodeNumber]);
-        $RecipientDetaile = new RecipientDetaileResource(
-            RecipientDetaile::create(
-
-                $request->all()
-
-
-            )
+        $validator = $this->validate(
+            $request,
+            [
+                "name" => "required",
+                "phoneNum" => 'required',
+                "familyCount" => 'required',
+                "addressID" => 'required',
+                "distriputionPointID" => 'required',
+                "averageSalary" => 'required',
+                "workFor" => 'required',
+                "passportNum" => 'required',
+                "socialStatus" => 'required',
+                "residentType" => 'required',
+                "image" => 'required',
+            ]
         );
+        if ($validator->getData()->success) {
+            $i = $validator->getData(true);
+            $userCount = RecipientDetaile::count();
+            $random = random_int(1000000, 8999999);
+            ;
+            $userCount += $random;
 
-        // $generator = new BarcodeGeneratorJPG();
+            // Generate a unique barcode number for the new user
+            $barcodeNumber = 'RECIPIENT' . str_pad($userCount + 1, 7, '0', STR_PAD_BOTH);
+            $request->merge(['birthday' => now(), 'barcode' => $barcodeNumber]);
+            new RecipientDetaileResource(
+                RecipientDetaile::create($request->all())
+            );
 
-        // // Generate barcode
-        // $barcodeImage = $generator->getBarcode($barcodeNumber, $generator::TYPE_CODE_128, 2, 30);
-        // // Save barcode image to file
-        // file_put_contents(public_path('barcodes/' . $barcodeNumber . '.png'), $barcodeImage);
-        // file_put_contents(public_path('barcodes/' . $barcodeNumber . '.png'), $fileContents);
+            // $generator = new BarcodeGeneratorJPG();
 
-        return $RecipientDetaile->response()->setStatusCode(200, "Recipient Created Succefully");
+            // // Generate barcode
+            // $barcodeImage = $generator->getBarcode($barcodeNumber, $generator::TYPE_CODE_128, 2, 30);
+            // // Save barcode image to file
+            // file_put_contents(public_path('barcodes/' . $barcodeNumber . '.png'), $barcodeImage);
+            // file_put_contents(public_path('barcodes/' . $barcodeNumber . '.png'), $fileContents);
+            $i['message'] = "Recipient Created Succefully";
+            $validator->setData($i);
+            return $validator;
+        }
+        return $validator;
     }
 
 
@@ -100,10 +120,31 @@ class RecipientDetaileController extends Controller
      */
     public function update($id, Request $request)
     {
-        $RecipientDetaile = new RecipientDetaileResource(RecipientDetaile::findOrFail($id));
-        $RecipientDetaile->update($request->all());
-        return $RecipientDetaile->response()->setStatusCode(200, "Recipient Details Updated Succefully")->
-            header("Addestionl Header", "true");
+        $validator = $this->validate(
+            $request,
+            [
+                "name" => "required",
+                "phoneNum" => 'required',
+                "familyCount" => 'required',
+                "addressID" => 'required',
+                "distriputionPointID" => 'required',
+                "averageSalary" => 'required',
+                "workFor" => 'required',
+                "passportNum" => 'required',
+                "socialStatus" => 'required',
+                "residentType" => 'required',
+                "image" => 'required',
+            ]
+        );
+        if ($validator->getData()->success) {
+            $i = $validator->getData(true);
+            $RecipientDetaile = new RecipientDetaileResource(RecipientDetaile::findOrFail($id));
+            $RecipientDetaile->update($request->all());
+            $i['message'] = "Recipient Details Updated Succefully";
+            $validator->setData($i);
+            return $validator;
+        }
+        return $validator;
     }
 
     /**

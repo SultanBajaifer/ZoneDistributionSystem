@@ -11,11 +11,13 @@ class DistributionPoint extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'name',
         'state',
         'creation_date',
         'userID',
-        'addressID'
+        'addressID',
+        'addressDistriputions',
     ];
     protected $table = 'DistributionPoints';
 

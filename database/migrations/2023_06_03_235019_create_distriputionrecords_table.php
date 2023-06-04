@@ -14,15 +14,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('distriputionrecords', function (Blueprint $table) {
-            $table->integer('id')->primary();
-            $table->integer('recipientID')->nullable();
+            $table->integer('id', true);
+            $table->integer('recipientID')->nullable()->index('FK_DistriputionRecords_RecipientDetailes');
             $table->dateTime('recrptionDate')->nullable();
-            $table->string('state', 12)->nullable();
+            $table->string('state', 12)->nullable()->default('Not');
+            $table->integer('recipientListID');
+            $table->string('recipientName', 50);
             $table->string('distriputionPointName', 50)->nullable();
             $table->string('distriputerName', 50)->nullable();
-            $table->string('ListName', 50)->nullable();
-            $table->string('packageName', 10)->nullable();
-            $table->integer('packageID')->nullable();
+            $table->string('listName', 50)->nullable();
+            $table->string('packageName', 50)->nullable();
+            $table->integer('packageID')->nullable()->index('FK_DistriputionsRecords_package1');
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable();
         });

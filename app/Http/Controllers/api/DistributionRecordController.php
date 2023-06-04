@@ -23,17 +23,28 @@ class DistributionRecordController extends Controller
             header("Addestionl Header", "true");
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function store(Request $request)
-    {
-        $DistributionRecord = new DistributionRecordResource(DistributionRecord::create($request->all()));
-        return $DistributionRecord->response()->setStatusCode(200, "DistributionRecord Created Succefully");
-    }
+    // /**
+    //  * Store a newly created resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @return \Illuminate\Http\JsonResponse
+    //  */
+    // public function store(Request $request)
+    // {
+    //     $validator = $this->myMethod(
+    //         $request,
+    //         [
+    //             'recipientID' => 'required',
+    //             'state' => 'required',
+    //             'addressDistriputions' => 'required',
+    //             'addressID' => 'required',
+    //         ]
+    //     );
+    //     if ($validator->getData()->success) {
+    //         $DistributionRecord = new DistributionRecordResource(DistributionRecord::create($request->all()));
+    //         return $DistributionRecord->response()->setStatusCode(200, "DistributionRecord Created Succefully");
+    //     }
+    // }
 
     /**
      * Display the specified resource.
@@ -48,36 +59,36 @@ class DistributionRecordController extends Controller
             header("Addestionl Header", "true");
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(Request $request, $id)
-    {
-        $DistributionRecord = new DistributionRecordResource(DistributionRecord::findOrFail($id));
-        $DistributionRecord->update($request->all());
-        return $DistributionRecord->response()->setStatusCode(200, "DistributionRecord Updated Succefully")->
-            header("Addestionl Header", "true");
-    }
+// /**
+//  * Update the specified resource in storage.
+//  *
+//  * @param  \Illuminate\Http\Request  $request
+//  * @param  int  $id
+//  * @return \Illuminate\Http\JsonResponse
+//  */
+// public function update(Request $request, $id)
+// {
+//     $DistributionRecord = new DistributionRecordResource(DistributionRecord::findOrFail($id));
+//     $DistributionRecord->update($request->all());
+//     return $DistributionRecord->response()->setStatusCode(200, "DistributionRecord Updated Succefully")->
+//         header("Addestionl Header", "true");
+// }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy($id)
-    {
-        $DistributionRecord = DistributionRecord::findOrFail($id);
-        $DistributionRecord->delete();
-        return Response::json(
-            [
-                $DistributionRecord
-            ],
-            202
-        );
-    }
+// /**
+//  * Remove the specified resource from storage.
+//  *
+//  * @param  int  $id
+//  * @return \Illuminate\Http\JsonResponse
+//  */
+// public function destroy($id)
+// {
+//     $DistributionRecord = DistributionRecord::findOrFail($id);
+//     $DistributionRecord->delete();
+//     return Response::json(
+//         [
+//             $DistributionRecord
+//         ],
+//         202
+//     );
+// }
 }

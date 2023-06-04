@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('complaints', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->integer('id', true);
             $table->string('complainterName', 30)->nullable();
             $table->string('discription', 353)->nullable();
-            $table->integer('userID')->nullable();
+            $table->integer('userID')->nullable()->index('userID');
             $table->dateTime('date')->nullable();
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable();

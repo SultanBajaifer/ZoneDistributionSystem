@@ -39,8 +39,24 @@ class DistributionPointController extends Controller
      */
     public function store(Request $request)
     {
-        $DistributionPoint = new DistributionPointResource(DistributionPoint::create($request->all()));
-        return $DistributionPoint->response()->setStatusCode(200, "DistributionPoint Created Succefully");
+        $validator = $this->myMethod(
+            $request,
+            [
+                'name' => 'required',
+                'userID' => 'required',
+                'addressDistriputions' => 'required',
+                'addressID' => 'required',
+            ]
+        );
+        if ($validator->getData()->success) {
+            $i = $validator->getData(true);
+            $DistributionPoint = new DistributionPointResource(DistributionPoint::create($request->all()));
+            $i = $validator->getData(true);
+            $i['message'] = "DistributionPoint Created Succefully";
+            $validator->setData($i);
+            return $validator;
+        }
+        return $validator;
     }
 
     /**
@@ -73,10 +89,25 @@ class DistributionPointController extends Controller
      */
     public function update($id, Request $request)
     {
-        $DistributionPoint = new DistributionPointResource(DistributionPoint::findOrFail($id));
-        $DistributionPoint->update($request->all());
-        return $DistributionPoint->response()->setStatusCode(200, "Distribution Point Updated Succefully")->
-            header("Addestionl Header", "true");
+        $validator = $this->myMethod(
+            $request,
+            [
+                'name' => 'required',
+                'userID' => 'required',
+                'state' => 'required',
+                'addressDistriputions' => 'required',
+                'addressID' => 'required',
+            ]
+        );
+        if ($validator->getData()->success) {
+            $i = $validator->getData(true);
+            $DistributionPoint = new DistributionPointResource(DistributionPoint::findOrFail($id));
+            $DistributionPoint->update($request->all());
+            $i['message'] = "Distribution Point Updated Succefully";
+            $validator->setData($i);
+            return $validator;
+        }
+        return $validator;
     }
 
     /**
