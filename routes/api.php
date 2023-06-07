@@ -37,50 +37,50 @@ Route::group([
 // });
 
 
-    Route::get(
-        'users/{id}/distributionPoints',
-        'RelationshipsController@userDistributionPoints'
-    );
-    Route::get(
-        'users/{id}/complaints',
-        'RelationshipsController@userComplaints'
-    );
-    Route::get(
-        'users/{id}/address',
-        'RelationshipsController@userAddress'
-    );
-    Route::get(
-        'packages/{id}/items',
-        'RelationshipsController@packageItems'
-    );
-    Route::get(
-        'items/{id}/package',
-        'RelationshipsController@itemPackage'
-    );
-    Route::get(
-        'recipientsList/{id}/recipient',
-        'RelationshipsController@recupientListRecipients'
-    );
-    Route::get(
-        'recipientsList/{id}/distributionPoints',
-        'RelationshipsController@recupientListDistributionPoints'
-    );
-    Route::get(
-        'recipientsList/{id}/distributionRecords',
-        'RelationshipsController@recupientListDistributionRecords'
-    );
-    Route::get(
-        'recipientDetails/{id}/address',
-        'RelationshipsController@recipientDetailsAddress'
-    );
-    Route::get(
-        'recipientDetails/{id}/distributionPoint',
-        'RelationshipsController@recipientDetailsDistributionPoint'
-    );
-    Route::get(
-        'recipientDetails/{id}/recipientsList',
-        'RelationshipsController@recipientDetailsRecipientsList'
-    );
+    // Route::get(
+    //     'users/{id}/distributionPoints',
+    //     'RelationshipsController@userDistributionPoints'
+    // );
+    // Route::get(
+    //     'users/{id}/complaints',
+    //     'RelationshipsController@userComplaints'
+    // );
+    // Route::get(
+    //     'users/{id}/address',
+    //     'RelationshipsController@userAddress'
+    // );
+    // Route::get(
+    //     'packages/{id}/items',
+    //     'RelationshipsController@packageItems'
+    // );
+    // Route::get(
+    //     'items/{id}/package',
+    //     'RelationshipsController@itemPackage'
+    // );
+    // Route::get(
+    //     'recipientsList/{id}/recipient',
+    //     'RelationshipsController@recupientListRecipients'
+    // );
+    // Route::get(
+    //     'recipientsList/{id}/distributionPoints',
+    //     'RelationshipsController@recupientListDistributionPoints'
+    // );
+    // Route::get(
+    //     'recipientsList/{id}/distributionRecords',
+    //     'RelationshipsController@recupientListDistributionRecords'
+    // );
+    // Route::get(
+    //     'recipientDetails/{id}/address',
+    //     'RelationshipsController@recipientDetailsAddress'
+    // );
+    // Route::get(
+    //     'recipientDetails/{id}/distributionPoint',
+    //     'RelationshipsController@recipientDetailsDistributionPoint'
+    // );
+    // Route::get(
+    //     'recipientDetails/{id}/recipientsList',
+    //     'RelationshipsController@recipientDetailsRecipientsList'
+    // );
 
     Route::get('users/{value}', 'Api\UserController@mySearch');
     Route::apiResource('users', 'Api\UserController')->only([
@@ -97,9 +97,10 @@ Route::group([
         'store'
     ]);
     Route::get('search', 'api\BaseController@querySearch');
-    Route::get('Flutter/{id}', 'api\flutterController@sendRecipientsList');
+    Route::get('sendList/{id}', 'api\flutterController@sendRecipientsList');
     Route::post('FlutterDelever', 'api\flutterController@reciveRecipientsList');
     Route::apiResource('items', api\ItemController::class);
+    Route::apiResource('addresses', api\AddressController::class);
     Route::apiResource('packages', api\PackageController::class);
     Route::apiResource('distributionPoint', api\DistributionPointController::class);
     Route::apiResource('recipientDetailes', api\RecipientDetaileController::class);
