@@ -31,12 +31,8 @@ class RecipientsListFlutterVersion extends JsonResource
             'state' => $this->state,
             'note' => $this->note,
             'is_send' => $this->is_send,
+            'records' => DistributionRecordResource::collection($this->distributionRecords),
             "distributionPoints" => DistributionPointResource::make($this->distributionPoint),
-            // 'recipients' => RecipientsResource::collection($this->Recipients, 'fouh'),
-            'records' => $this->distributionRecords,
-            // 'recipients' => RecipientsResource::collection($this->Recipients, $this->name),
-
-            // 'records' => $records,
         ];
     }
 }

@@ -45,12 +45,7 @@ class RecipientDetaileFlutterVersion extends JsonResource
             'socialStatus' => $this->socialStatus,
             'residentType' => $this->residentType,
             'image' => $this->MyListName,
-            "Records" => DistributionRecordResource::collection(
-                $this->distriputionRecords->where(
-                    'listName',
-                    '=', $this->MyListName
-                )
-            )
+            "Records" => DistributionRecordResource::collection($this->distriputionRecords)
 
 
         ];
