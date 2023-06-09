@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\User as UserResource;
 
 class Complaint extends JsonResource
 {
@@ -18,8 +19,8 @@ class Complaint extends JsonResource
             'complainterName' => $this->complainterName,
             'discription' => $this->discription,
             'email' => $this->email,
-            'userID' => $this->userID,
-            'date' => $this->date
+            'date' => $this->date,
+            'user' => UserResource::make($this->user),
         ];
     }
 }

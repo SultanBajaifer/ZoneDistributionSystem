@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\DistributionRecord as DistributionRecordResource;
+use App\Http\Resources\Address as AddressResource;
 
 
 class RecipientDetaile extends JsonResource
@@ -22,7 +23,6 @@ class RecipientDetaile extends JsonResource
             'phoneNum' => $this->phoneNum,
             'barcode' => $this->barcode,
             'familyCount' => $this->familyCount,
-            'addressID' => $this->addressID,
             'distriputionPointID' => $this->distriputionPointID,
             'birthday' => $this->birthday,
             'averageSalary' => $this->averageSalary,
@@ -31,6 +31,7 @@ class RecipientDetaile extends JsonResource
             'socialStatus' => $this->socialStatus,
             'residentType' => $this->residentType,
             'image' => $this->image,
+            'address' => AddressResource::make($this->Address),
             "Records" => DistributionRecordResource::collection($this->distriputionRecords),
 
 

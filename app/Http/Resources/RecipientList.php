@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\RecipientDetaile as RecipientsResource;
 use App\Http\Resources\DistributionPoint as DistributionPointResource;
+use App\Http\Resources\DistributionRecord as DistributionRecordResource;
 use App\Http\Resources\Address as AddressResource;
 
 
@@ -25,8 +26,9 @@ class RecipientList extends JsonResource
             'state' => $this->state,
             'note' => $this->note,
             'is_send' => $this->is_send,
-            "recipients" => RecipientsResource::collection($this->Recipients),
-            "distributionPoints" => DistributionPointResource::make($this->distributionPoint),
+            'records' => DistributionRecordResource::collection($this->distributionRecords),
+            // "recipients" => RecipientsResource::collection($this->Recipients),
+            "distributionPoint" => DistributionPointResource::make($this->distributionPoint),
 
         ];
     }

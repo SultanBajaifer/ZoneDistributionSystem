@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Resources\DistributionPoint as DistributionPointResource;
 use App\Models\DistributionPoint;
-use App\Models\DistributionRecord as DistributionRecordResource;
+use App\Http\Resources\DistributionRecord as DistributionRecordResource;
 use App\Models\DistributionRecord;
 use App\Models\RecipientsList;
 use App\Models\User;

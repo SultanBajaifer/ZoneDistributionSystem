@@ -19,7 +19,7 @@ class Package extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'note' => $this->note,
-            'items' => ItemsResource::collection($this->Items)
+            // 'items' => ItemsResource::collection($this->Items)
         ];
     }
 }
