@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Address as AddressResource;
 
 class User extends JsonResource
 {
@@ -21,7 +22,8 @@ class User extends JsonResource
             'email' => $this->email,
             'password' => $this->password,
             'userType' => $this->userType,
-            'DistributionPoint' => $this->DistributionPoints,
+            'address' => AddressResource::make($this->addressID),
+            // 'DistributionPoint' => DistributionPoint$this->DistributionPoints,
         ];
     }
 }

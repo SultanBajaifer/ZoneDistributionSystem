@@ -97,8 +97,8 @@ Route::group([
         'store'
     ]);
     Route::get('search', 'api\BaseController@querySearch');
-    Route::get('sendList/{id}', 'api\flutterController@sendRecipientsList');
-    Route::post('FlutterDelever', 'api\flutterController@reciveRecipientsList');
+    Route::get('sendList/{id}', 'api\UserController@sendRecipientsList');
+    Route::post('FlutterDelever', 'api\UserController@reciveRecipientsList');
     Route::apiResource('items', api\ItemController::class);
     Route::apiResource('addresses', api\AddressController::class);
     Route::apiResource('packages', api\PackageController::class);

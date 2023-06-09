@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Http\Resources\DistributionPoint as DistributionPointResource;
+use App\Models\DistributionPoint;
+use App\Models\DistributionRecord as DistributionRecordResource;
+use App\Models\DistributionRecord;
+use App\Models\RecipientsList;
 use App\Models\User;
 use DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -44,7 +49,7 @@ class UserController extends Controller
         $searchAscOrDesc = $request->ascOrDesc == "desc" ? "DESC" : 'ASC';
         // Select * from users where userName like
         // '%$value%' order by users . userName DESC;
-        return $this->search(
+        $result = $this->search(
             'users',
             $searchValue,
             'userName',
@@ -53,7 +58,7 @@ class UserController extends Controller
         );
 
         // $result = DB::table('users')->where('userName', $request->value)->get()->toJson();
-        // return response()->json($result, 200);
+        return response()->json($result, 200);
     }
 
     /**
@@ -192,5 +197,80 @@ class UserController extends Controller
             202
         );
 
+    }
+    public function sendRecipientsList($id)
+    {
+        $RecipientLists = DistributionPoint::findOrFail($id)->recipientsLists;
+        $field = array();
+        $filtered = array();
+        foreach ($RecipientLists as $RecipientList) {
+            if ($RecipientList->is_send == 1) {
+
+                $field['id'] = $RecipientList->id;
+                $field['name'] = $RecipientList->name;
+                $field['creationDate'] = $RecipientList->creationDate;
+                $field['state'] = $RecipientList->state;
+                $field['note'] = $RecipientList->note;
+                $field['is_send'] = $RecipientList->is_send; // $field['recipients'] = new RecipientDetaileResource($RecipientList->recipients, $RecipientList->name);
+                $field['Records'] = DistributionRecordResource::collection($RecipientList->distributionRecords->where('state', '=', 'Not'));
+                $filtered[] = $field;
+            }
+        }
+        return Response::json(['data' => $filtered], 200);
+
+    }
+
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\jsonResponse
+     */
+    public function reciveRecipientsList(Request $request)
+    {
+        $validator = $this->validate(
+            $request,
+            [
+                'recipientListID' => 'required',
+                'MyRecords' => 'required|array'
+            ]
+        );
+        if ($validator->getData()->success) {
+
+
+            $i = 0;
+
+            foreach ($request->MyRecords as $record) {
+                $result = DistributionRecordResource::make(
+                    DistributionRecord::where('id', $record)
+                    // ->where('recipientListID', $request->recipientListID)
+                );
+                if (!is_Null($result)) {
+                    $result->update(['state' => 'deleverd']);
+                }
+                // $arr[] = $record->id;
+                // $request->merge(["value {$i}" => $record]);
+                // $i++;
+
+            }
+            $i = $validator->getData(true);
+            $i['message'] = 'Records Updated Successfly';
+            // dd($request->all());
+            $ListRecords = RecipientsList::findOrFail($request->recipientListID)->distributionRecords;
+            foreach ($ListRecords as $record) {
+                if ($record->state != 'deleverd') {
+                    $i['message'] .= ' ' . "but there still some records have not been deleverd";
+                    $validator->setData($i);
+                    return $validator;
+                }
+            }
+            RecipientsList::where('id', $request->recipientListID)->update(['state' => 1]);
+            $validator->setData($i);
+            $i['message'] .= ' ' . 'and List Updated';
+            return $validator;
+        }
+        return $validator;
     }
 }

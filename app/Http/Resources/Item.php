@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Package as PackageResource;
 
 class Item extends JsonResource
 {
@@ -19,7 +20,7 @@ class Item extends JsonResource
             'name' => $this->name,
             'quentity' => $this->quentity,
             'unit' => $this->unit,
-            'packageID' => $this->packageID,
+            'packageID' => PackageResource::make($this->packageID),
         ];
     }
 }
