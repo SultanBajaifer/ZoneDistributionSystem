@@ -4,7 +4,6 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DistributionRecordFlutter as DistributionRecordResource;
-use App\Http\Resources\RecipientList;
 use App\Models\DistributionPoint;
 use App\Models\DistributionRecord;
 use App\Models\RecipientsList;
@@ -17,12 +16,12 @@ use Illuminate\Support\Facades\Validator;
 class flutterController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\jsonResponse
-     */
+/**
+ * Display a listing of the resource.
+ *
+ * @param int $id
+ * @return \Illuminate\Http\jsonResponse
+ */
 
 
 

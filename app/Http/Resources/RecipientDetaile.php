@@ -32,7 +32,7 @@ class RecipientDetaile extends JsonResource
             'residentType' => $this->residentType,
             'image' => $this->image,
             'address' => AddressResource::make($this->Address),
-            "Records" => DistributionRecordResource::collection($this->distriputionRecords),
+            // "Records" => DistributionRecordResource::collection($this->distriputionRecords),
 
 
         ];

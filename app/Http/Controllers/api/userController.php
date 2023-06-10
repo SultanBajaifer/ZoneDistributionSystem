@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Resources\DistributionPoint as DistributionPointResource;
 use App\Models\DistributionPoint;
 use App\Http\Resources\DistributionRecord as DistributionRecordResource;
 use App\Models\DistributionRecord;

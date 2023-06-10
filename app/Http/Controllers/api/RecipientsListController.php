@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Resources\DistributionPoint;
 use App\Models\DistributionRecord;
 use App\Models\Package;
 use App\Models\RecipientDetaile;
@@ -123,7 +122,7 @@ class RecipientsListController extends Controller
         );
         if ($validator->getData()->success) {
             $i = $validator->getData(true);
-            $RecipientList = new RecipientListResource(RecipientsList::findOrFail($id));
+            $RecipientList = RecipientListResource::make(RecipientsList::findOrFail($id));
             $RecipientList->update($request->all());
             $i['message'] = "Recipient List Updated Succefully";
             $i['list'] = $RecipientList;

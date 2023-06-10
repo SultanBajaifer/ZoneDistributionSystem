@@ -3,10 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\RecipientDetaile as RecipientsResource;
 use App\Http\Resources\DistributionPoint as DistributionPointResource;
 use App\Http\Resources\DistributionRecord as DistributionRecordResource;
-use App\Http\Resources\Address as AddressResource;
 
 
 class RecipientList extends JsonResource
