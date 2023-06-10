@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Response;
-use App\Http\Resources\RecipientList as RecipientListResource;
+use App\Http\Resources\RecipientList as RecipientsListResource;
 
 class RecipientsListController extends Controller
 {
@@ -51,6 +51,30 @@ class RecipientsListController extends Controller
             [
                 "name" => "required",
                 "note" => 'required',
+            ]
+        );
+        if ($validator->getData()->success) {
+            $i = $validator->getData(true);
+            $item = RecipientsListResource::make(RecipientsList::create($request->all()));
+            $i['message'] = "Item Created Succefully";
+            $i['item'] = $item;
+            $validator->setData($i);
+            return $validator;
+        }
+        return $validator;
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function complexStore(Request $request)
+    {
+        $validator = $this->validate(
+            $request,
+            [
+                "name" => "required",
+                "note" => 'required',
                 "distriputionPointID" => 'required',
                 "distriputer" => 'required',
                 "recipients" => 'required|array',
@@ -78,8 +102,6 @@ class RecipientsListController extends Controller
             return $validator;
         }
         return $validator;
-
-
     }
 
     /**

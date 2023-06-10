@@ -52,6 +52,7 @@ class ItemController extends Controller
             $i = $validator->getData(true);
             $item = new ItemResource(Item::create($request->all()));
             $i['message'] = "Item Created Succefully";
+            $i['item'] = $item;
             $validator->setData($i);
             return $validator;
         }

@@ -20,7 +20,7 @@ class Complaint extends JsonResource
             'discription' => $this->discription,
             'email' => $this->email,
             'date' => $this->date,
-            'user' => UserResource::make($this->user),
+            // 'user' => UserResource::make($this->user),
         ];
     }
 }

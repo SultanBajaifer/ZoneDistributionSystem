@@ -99,6 +99,7 @@ Route::group([
     Route::get('search', 'api\BaseController@querySearch');
     Route::get('sendList/{id}', 'api\UserController@sendRecipientsList');
     Route::post('FlutterDelever', 'api\UserController@reciveRecipientsList');
+    Route::post('complexStore', 'api\RecipientsListController@complexStore');
     Route::apiResource('items', api\ItemController::class);
     Route::apiResource('addresses', api\AddressController::class);
     Route::apiResource('packages', api\PackageController::class);

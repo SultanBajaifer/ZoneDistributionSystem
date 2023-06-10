@@ -45,7 +45,7 @@ class ComplaintController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = $this->myMethod(
+        $validator = $this->validate(
             $request,
             [
                 'complainterName' => 'required',
@@ -67,7 +67,7 @@ class ComplaintController extends Controller
             if ($Complaint) {
                 Mail::to($email)->send(new ComplaintMail($request->only(['email', 'complainterName'])));
                 $i = $validator->getData(true);
-                $i['message'] = 'Thank you for subscribing to our email, please check your inbox';
+                $i['message'] = 'Thank you for feedback, please check your inbox';
                 $i['new value'] = $Complaint;
                 $validator->setData($i);
                 return $validator;
