@@ -24,7 +24,7 @@ class RecipientsListController extends Controller
      */
     public function index()
     {
-        $RecipientList = RecipientListResource::collection(RecipientsList::all());
+        $RecipientList = RecipientsListResource::collection(RecipientsList::all());
 
         return $RecipientList->response()->setStatusCode(200, "Recipients Lists Returned Succefully")->
             header("Addestionl Header", "true");
@@ -97,7 +97,7 @@ class RecipientsListController extends Controller
                 ]);
             }
             $i['message'] = "Recipient List Returned Succefully";
-            $i['list'] = RecipientListResource::make($recipientList);
+            $i['list'] = RecipientsListResource::make($recipientList);
             $validator->setData($i);
             return $validator;
         }
@@ -110,7 +110,7 @@ class RecipientsListController extends Controller
      * */
     public function show($id)
     {
-        $RecipientList = RecipientListResource::make(RecipientsList::findOrFail($id));
+        $RecipientList = RecipientsListResource::make(RecipientsList::findOrFail($id));
         return $RecipientList->response()->setStatusCode(200, "Recipient List Returned Succefully")->
             header("Addestionl Header", "true");
     }
@@ -144,7 +144,7 @@ class RecipientsListController extends Controller
         );
         if ($validator->getData()->success) {
             $i = $validator->getData(true);
-            $RecipientList = RecipientListResource::make(RecipientsList::findOrFail($id));
+            $RecipientList = RecipientsListResource::make(RecipientsList::findOrFail($id));
             $RecipientList->update($request->all());
             $i['message'] = "Recipient List Updated Succefully";
             $i['list'] = $RecipientList;
