@@ -82,7 +82,6 @@ Route::group([
     //     'RelationshipsController@recipientDetailsRecipientsList'
     // );
 
-    Route::get('users/{value}', 'Api\UserController@mySearch');
     Route::apiResource('users', 'Api\UserController')->only([
         'index',
         'show',
@@ -90,6 +89,8 @@ Route::group([
         'update',
         'destroy'
     ]);
+    Route::get('users/{value}', 'Api\UserController@mySearch');
+
     // Route::apiResource('users', UserController::class);
     Route::apiResource('complaints', api\ComplaintController::class)->only([
         'index',

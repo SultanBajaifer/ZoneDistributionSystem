@@ -187,7 +187,7 @@ class UserController extends Controller
     {
 
         $data = User::findOrFail($id);
-        $this->authorize("update", $data);
+        // $this->authorize("update", $data);
         $data->delete();
         return Response::json(
             [
