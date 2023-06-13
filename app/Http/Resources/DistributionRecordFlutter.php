@@ -16,18 +16,20 @@ class DistributionRecordFlutter extends JsonResource
      */
     public function toArray($request)
     {
+        $recipient = $this->recipientDetails;
         return [
-            'id' => $this->id,
-            'recipientID' => $this->recipientID,
-            'recrptionDate' => $this->recrptionDate,
-            'state' => $this->state,
-            'recipientListID' => $this->recipientListID,
-            'recipientName' => $this->recipientName,
-            'listName' => $this->listName,
-            'distriputionPointName' => $this->distriputionPointName,
-            'distriputerName' => $this->distriputerName,
-            'packageID' => $this->packageID,
-            "recipientDetails" => $this->recipientDetails,
+            'id' => $this->recipientID,
+            'recipientName' => $recipient->name,
+            'recrptionDate' => $recipient->phoneNum,
+            'barcode' => $recipient->barcode,
+            'familyCount' => $recipient->familyCount,
+            'birthday' => $recipient->birthday,
+            'averageSalary' => $recipient->averageSalary,
+            'workFor' => $recipient->workFor,
+            'passportNum' => $recipient->passportNum,
+            "socialStatus" => $recipient->socialStatus,
+            "residentType" => $recipient->residentType,
+            "recordID" => $this->id,
 
         ];
     }

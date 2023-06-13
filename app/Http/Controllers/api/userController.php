@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Models\DistributionPoint;
-use App\Http\Resources\DistributionRecord as DistributionRecordResource;
+use App\Http\Resources\DistributionRecordFlutter as DistributionRecordResource;
 use App\Models\DistributionRecord;
 use App\Models\RecipientsList;
 use App\Models\User;
