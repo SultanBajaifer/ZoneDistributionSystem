@@ -86,13 +86,17 @@ class UserController extends Controller
                 'name' => 'required',
                 'userName' => 'required',
                 'userType' => 'required',
-                'password' => 'required',
                 'email' => 'required',
-                'addressID' => 'required'
             ]
         );
         if ($validator->getData()->success) {
             $i = $validator->getData(true);
+            if ($request->password == null)
+                dd($request->all());
+            else
+                $request->password = Hash::make($request->password);
+            dd($request->all());
+
             $user = UserResource::make(User::create([
                 'name' => $request->name,
                 'userName' => $request->userName,
@@ -148,24 +152,17 @@ class UserController extends Controller
                 'name' => 'required',
                 'userName' => 'required',
                 'userType' => 'required',
-                'password' => 'required',
                 'email' => 'required',
-                'addressID' => 'required'
             ]
         );
         if ($validator->getData()->success) {
             $i = $validator->getData(true);
+            if ($request->password != null)
+                $request['password'] = Hash::make($request->password);
             // $idUser = User::findOrFail($id);
             // $this->authorize("update", $idUser);
             $user = UserResource::make(User::findorFail($id));
-            $user->update([
-                'name' => $request->name,
-                'userName' => $request->userName,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'addressID' => $request->addressID,
-                'userType' => $request->userType
-            ]);
+            $user->update($request->all());
             $i['message'] = "user Updated Succefully";
             $i['new value'] = $user;
             $validator->setData($i);

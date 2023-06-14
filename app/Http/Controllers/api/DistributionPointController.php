@@ -39,7 +39,7 @@ class DistributionPointController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = $this->myMethod(
+        $validator = $this->validate(
             $request,
             [
                 'name' => 'required',
@@ -90,7 +90,7 @@ class DistributionPointController extends Controller
      */
     public function update($id, Request $request)
     {
-        $validator = $this->myMethod(
+        $validator = $this->validate(
             $request,
             [
                 'name' => 'required',
