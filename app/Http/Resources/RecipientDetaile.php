@@ -23,7 +23,6 @@ class RecipientDetaile extends JsonResource
             'phoneNum' => $this->phoneNum,
             'barcode' => $this->barcode,
             'familyCount' => $this->familyCount,
-            'distriputionPointID' => $this->distriputionPointID,
             'birthday' => $this->birthday,
             'averageSalary' => $this->averageSalary,
             'workFor' => $this->workFor,
@@ -32,7 +31,8 @@ class RecipientDetaile extends JsonResource
             'residentType' => $this->residentType,
             'image' => $this->image,
             'address' => AddressResource::make($this->Address),
-            // "Records" => DistributionRecordResource::collection($this->distriputionRecords),
+            'RecipientsList' => $this->RecipientsList,
+            "Records" => DistributionRecordResource::collection($this->distriputionRecords),
 
 
         ];

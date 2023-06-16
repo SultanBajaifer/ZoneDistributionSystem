@@ -21,7 +21,6 @@ class RecipientDetaile extends Model
         'barcode',
         'familyCount',
         'addressID',
-        'distriputionPointID',
         'birthday',
         'averageSalary',
         'workFor',
@@ -44,10 +43,7 @@ class RecipientDetaile extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function DistributionPoint(): BelongsTo
-    {
-        return $this->belongsTo(DistributionPoint::class, 'distriputionPointID', 'id');
-    }
+
     /**
      * The RecipientLists that belong to the Recipient
      *
@@ -55,7 +51,7 @@ class RecipientDetaile extends Model
      */
     public function RecipientsList(): BelongsToMany
     {
-        return $this->belongsToMany(RecipientsList::class, 'RecipientDetailes_RecipientsList', 'RecipientDetaileID', 'RecipientListID');
+        return $this->belongsToMany(RecipientsList::class, 'distriputionrecords', 'recipientID', 'recipientListID');
     }
 
     /**

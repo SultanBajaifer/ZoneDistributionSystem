@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Factories\UserType0Factory;
 use DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -12,6 +13,7 @@ use App\Models\User;
 
 class UserSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -19,6 +21,10 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(20)->create();
+        User::factory()->ofType('admin')->count(1)->create();
+
+        // Generate 3 guest users using the AdminUserFactory
+        User::factory()->ofType('distributer')->count(1)->create();
+
     }
 }

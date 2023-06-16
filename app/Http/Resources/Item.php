@@ -20,7 +20,7 @@ class Item extends JsonResource
             'name' => $this->name,
             'quentity' => $this->quentity,
             'unit' => $this->unit,
-            'package' => PackageResource::make($this->package),
+            'package' => $this->package
         ];
     }
 }

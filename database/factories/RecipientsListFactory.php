@@ -17,7 +17,10 @@ class RecipientsListFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "name" => substr($this->faker->name(), 0, 50),
+            "note" => $this->faker->text(353),
+            "is_send" => 1,
+            "distriputionPointID" => $this->faker->numberBetween(1, 5)
         ];
     }
 }

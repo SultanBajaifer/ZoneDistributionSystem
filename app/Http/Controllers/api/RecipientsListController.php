@@ -76,7 +76,6 @@ class RecipientsListController extends Controller
                 "name" => "required",
                 "note" => 'required',
                 "distriputionPointID" => 'required',
-                "distriputer" => 'required',
                 "recipients" => 'required|array',
 
             ]
@@ -84,16 +83,17 @@ class RecipientsListController extends Controller
         if ($validator->getData()->success) {
             $i = $validator->getData(true);
             $recipientList = RecipientsList::create($request->except(['recipients']));
+            $distributionPoint = DistributionPointModel::findOrFail($request->distriputionPointID);
             foreach ($request->recipients as $recipient) {
                 DistributionRecord::create([
-                    'recipientID' => $recipient[0],
+                    'recipientID' => $recipient['recipientID'],
                     'recipientListID' => $recipientList->id,
-                    'recipientName' => RecipientDetaile::findOrFail($recipient[0])->name,
-                    "distriputionPointName" => DistributionPointModel::findOrFail($request->distriputionPointID)->name,
-                    "distriputerName" => UserModel::findOrFail($request->distriputer)->userName,
+                    'recipientName' => RecipientDetaile::findOrFail($recipient['recipientID'])->name,
+                    "distriputionPointName" => $distributionPoint->name,
+                    "distriputerName" => $distributionPoint->user->userName,
                     "listName" => $recipientList->name,
-                    'packageName' => Package::findOrFail($recipient[1])->name,
-                    'packageID' => $recipient[1]
+                    'packageName' => Package::findOrFail($recipient['packageID'])->name,
+                    'packageID' => $recipient['packageID']
                 ]);
             }
             $i['message'] = "Recipient List Returned Succefully";

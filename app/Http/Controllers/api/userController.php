@@ -237,7 +237,7 @@ class UserController extends Controller
                     // ->where('recipientListID', $request->recipientListID)
                 );
                 if (!is_Null($result)) {
-                    $result->update(['state' => 'deleverd']);
+                    $result->update(['state' => 'deleverd', 'recrptionDate' => now()]);
                 }
                 // $arr[] = $record->id;
                 // $request->merge(["value {$i}" => $record]);

@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\RecipientsList;
+use App\Models\DistributionRecord;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class RecipientsListSeeder extends Seeder
+class DistributionRecordSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class RecipientsListSeeder extends Seeder
      */
     public function run()
     {
-        RecipientsList::factory(5)->create();
+        DistributionRecord::factory(5)->create();
     }
 }

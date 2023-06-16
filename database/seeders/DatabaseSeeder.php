@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\RecipientsList;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,8 +19,10 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(PackageSeeder::class);
         $this->call(ItemSeeder::class);
-        // $this->call(DistributionPointSeeder::class);
         $this->call(RecipientDetaileSeeder::class);
+        $this->call(DistributionPointSeeder::class);
+        $this->call(RecipientsListSeeder::class);
+        $this->call(DistributionRecordSeeder::class);
 
     }
 }

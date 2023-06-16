@@ -17,7 +17,7 @@ class AddressFactory extends Factory
     public function definition()
     {
         return [
-            'city' => $this->faker->city(),
+            'city' => substr($this->faker->city(), 0, 20),
             'country' => substr($this->faker->country(), 0, 20),
             'neighborhood' => substr($this->faker->streetAddress(), 0, 20)
 

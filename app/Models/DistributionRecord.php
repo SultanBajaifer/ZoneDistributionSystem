@@ -14,8 +14,6 @@ class DistributionRecord extends Model
 
     protected $fillable = [
         'recipientID',
-        'recrptionDate',
-        'state',
         'recipientListID',
         'recipientName',
         'distriputionPointName',

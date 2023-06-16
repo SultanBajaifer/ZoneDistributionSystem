@@ -20,25 +20,34 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $i = 0;
-        if (DB::table('users')->count() > 0) {
-            $i = 1;
-            $name = 'Hamza';
-            $userName = 'Admin';
-        } else {
-            $i = 0;
-            $name = $this->faker->name();
-            $userName = $this->faker->name();
-        }
         return [
-            'name' => $name,
-            'userName' => $userName,
+
             'password' => Hash::make('password'),
             // password
-            'email' => $this->faker->unique()->safeEmail(),
-            'userType' => $i,
+            'userType' => 1,
             'addressID' => $this->faker->numberBetween(10, 20),
         ];
+    }
+    public function ofType($type)
+    {
+        switch ($type) {
+            case 'admin':
+                return $this->state([
+                    'name' => 'Hamza',
+                    'userName' => "Admin_Hamza",
+                    'email' => "Hamzq@gmail.com",
+                    'userType' => 1,
+                ]);
+            case 'distributer':
+                return $this->state([
+                    'name' => 'Mohammed',
+                    'userName' => "Distributer_Mohammed",
+                    'email' => "Mohammed@gmail.com",
+                    'userType' => 0,
+                ]);
+            default:
+                return $this;
+        }
     }
 
     /**
