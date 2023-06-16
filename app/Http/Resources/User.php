@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Address as AddressResource;
-use App\Http\Resources\DistributionPoint_login as DistributionPointResource;
+use App\Http\Resources\DistributionPoint as DistributionPointResource;
 
 class User extends JsonResource
 {
