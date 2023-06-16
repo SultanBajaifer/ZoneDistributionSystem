@@ -125,4 +125,4 @@ Route::group([
 
 });
 ##  Login Routse    ###
-Route::get('login', 'api\LoginController@login');
+Route::post('login', 'api\LoginController@login');
