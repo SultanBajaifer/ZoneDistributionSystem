@@ -1,0 +1,465 @@
+{
+    "data": [
+        {
+            "domain": null,
+            "method": "POST",
+            "uri": "api\/FlutterDelever",
+            "name": null,
+            "action": "App\\Http\\Controllers\\api\\UserController@reciveRecipientsList",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/addresses",
+            "name": "addresses.index",
+            "action": "App\\Http\\Controllers\\api\\AddressController@index",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "POST",
+            "uri": "api\/addresses",
+            "name": "addresses.store",
+            "action": "App\\Http\\Controllers\\api\\AddressController@store",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/addresses\/{address}",
+            "name": "addresses.show",
+            "action": "App\\Http\\Controllers\\api\\AddressController@show",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "PUT|PATCH",
+            "uri": "api\/addresses\/{address}",
+            "name": "addresses.update",
+            "action": "App\\Http\\Controllers\\api\\AddressController@update",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "DELETE",
+            "uri": "api\/addresses\/{address}",
+            "name": "addresses.destroy",
+            "action": "App\\Http\\Controllers\\api\\AddressController@destroy",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/complaints",
+            "name": "complaints.index",
+            "action": "App\\Http\\Controllers\\api\\ComplaintController@index",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "POST",
+            "uri": "api\/complaints",
+            "name": "complaints.store",
+            "action": "App\\Http\\Controllers\\api\\ComplaintController@store",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/complaints\/{complaint}",
+            "name": "complaints.show",
+            "action": "App\\Http\\Controllers\\api\\ComplaintController@show",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "POST",
+            "uri": "api\/complexStore",
+            "name": null,
+            "action": "App\\Http\\Controllers\\api\\RecipientsListController@complexStore",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/distributionPoint",
+            "name": "distributionPoint.index",
+            "action": "App\\Http\\Controllers\\api\\DistributionPointController@index",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "POST",
+            "uri": "api\/distributionPoint",
+            "name": "distributionPoint.store",
+            "action": "App\\Http\\Controllers\\api\\DistributionPointController@store",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/distributionPoint\/{distributionPoint}",
+            "name": "distributionPoint.show",
+            "action": "App\\Http\\Controllers\\api\\DistributionPointController@show",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "PUT|PATCH",
+            "uri": "api\/distributionPoint\/{distributionPoint}",
+            "name": "distributionPoint.update",
+            "action": "App\\Http\\Controllers\\api\\DistributionPointController@update",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "DELETE",
+            "uri": "api\/distributionPoint\/{distributionPoint}",
+            "name": "distributionPoint.destroy",
+            "action": "App\\Http\\Controllers\\api\\DistributionPointController@destroy",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/distributionRecord",
+            "name": "distributionRecord.index",
+            "action": "App\\Http\\Controllers\\api\\DistributionRecordController@index",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/distributionRecord\/{distributionRecord}",
+            "name": "distributionRecord.show",
+            "action": "App\\Http\\Controllers\\api\\DistributionRecordController@show",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/items",
+            "name": "items.index",
+            "action": "App\\Http\\Controllers\\api\\ItemController@index",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "POST",
+            "uri": "api\/items",
+            "name": "items.store",
+            "action": "App\\Http\\Controllers\\api\\ItemController@store",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/items\/{item}",
+            "name": "items.show",
+            "action": "App\\Http\\Controllers\\api\\ItemController@show",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "PUT|PATCH",
+            "uri": "api\/items\/{item}",
+            "name": "items.update",
+            "action": "App\\Http\\Controllers\\api\\ItemController@update",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "DELETE",
+            "uri": "api\/items\/{item}",
+            "name": "items.destroy",
+            "action": "App\\Http\\Controllers\\api\\ItemController@destroy",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "POST",
+            "uri": "api\/login",
+            "name": null,
+            "action": "App\\Http\\Controllers\\api\\LoginController@login",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/packages",
+            "name": "packages.index",
+            "action": "App\\Http\\Controllers\\api\\PackageController@index",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "POST",
+            "uri": "api\/packages",
+            "name": "packages.store",
+            "action": "App\\Http\\Controllers\\api\\PackageController@store",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/packages\/{package}",
+            "name": "packages.show",
+            "action": "App\\Http\\Controllers\\api\\PackageController@show",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "PUT|PATCH",
+            "uri": "api\/packages\/{package}",
+            "name": "packages.update",
+            "action": "App\\Http\\Controllers\\api\\PackageController@update",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "DELETE",
+            "uri": "api\/packages\/{package}",
+            "name": "packages.destroy",
+            "action": "App\\Http\\Controllers\\api\\PackageController@destroy",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/recipientDetailes",
+            "name": "recipientDetailes.index",
+            "action": "App\\Http\\Controllers\\api\\RecipientDetaileController@index",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "POST",
+            "uri": "api\/recipientDetailes",
+            "name": "recipientDetailes.store",
+            "action": "App\\Http\\Controllers\\api\\RecipientDetaileController@store",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/recipientDetailes\/{recipientDetaile}",
+            "name": "recipientDetailes.show",
+            "action": "App\\Http\\Controllers\\api\\RecipientDetaileController@show",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "PUT|PATCH",
+            "uri": "api\/recipientDetailes\/{recipientDetaile}",
+            "name": "recipientDetailes.update",
+            "action": "App\\Http\\Controllers\\api\\RecipientDetaileController@update",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "DELETE",
+            "uri": "api\/recipientDetailes\/{recipientDetaile}",
+            "name": "recipientDetailes.destroy",
+            "action": "App\\Http\\Controllers\\api\\RecipientDetaileController@destroy",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/recipientsList",
+            "name": "recipientsList.index",
+            "action": "App\\Http\\Controllers\\api\\RecipientsListController@index",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "POST",
+            "uri": "api\/recipientsList",
+            "name": "recipientsList.store",
+            "action": "App\\Http\\Controllers\\api\\RecipientsListController@store",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/recipientsList\/{recipientsList}",
+            "name": "recipientsList.show",
+            "action": "App\\Http\\Controllers\\api\\RecipientsListController@show",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "PUT|PATCH",
+            "uri": "api\/recipientsList\/{recipientsList}",
+            "name": "recipientsList.update",
+            "action": "App\\Http\\Controllers\\api\\RecipientsListController@update",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "DELETE",
+            "uri": "api\/recipientsList\/{recipientsList}",
+            "name": "recipientsList.destroy",
+            "action": "App\\Http\\Controllers\\api\\RecipientsListController@destroy",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/search",
+            "name": null,
+            "action": "App\\Http\\Controllers\\api\\BaseController@querySearch",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/sendList\/{id}",
+            "name": null,
+            "action": "App\\Http\\Controllers\\api\\UserController@sendRecipientsList",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/user",
+            "name": null,
+            "action": "Closure",
+            "middleware": [
+                "api",
+                "App\\Http\\Middleware\\Authenticate:sanctum"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/users",
+            "name": "users.index",
+            "action": "App\\Http\\Controllers\\Api\\UserController@index",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "POST",
+            "uri": "api\/users",
+            "name": "users.store",
+            "action": "App\\Http\\Controllers\\Api\\UserController@store",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "GET|HEAD",
+            "uri": "api\/users\/{user}",
+            "name": "users.show",
+            "action": "App\\Http\\Controllers\\Api\\UserController@show",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "PUT|PATCH",
+            "uri": "api\/users\/{user}",
+            "name": "users.update",
+            "action": "App\\Http\\Controllers\\Api\\UserController@update",
+            "middleware": [
+                "api"
+            ]
+        },
+        {
+            "domain": null,
+            "method": "DELETE",
+            "uri": "api\/users\/{user}",
+            "name": "users.destroy",
+            "action": "App\\Http\\Controllers\\Api\\UserController@destroy",
+            "middleware": [
+                "api"
+            ]
+        }
+    ]
+}

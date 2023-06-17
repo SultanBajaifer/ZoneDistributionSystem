@@ -42,23 +42,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function mySearch(Request $request)
-    {
-        $searchValue = isset($request->value) ? $request->value : 'name';
-        $searchAscOrDesc = $request->ascOrDesc == "desc" ? "DESC" : 'ASC';
-        // Select * from users where userName like
-        // '%$value%' order by users . userName DESC;
-        $result = $this->search(
-            'users',
-            $searchValue,
-            'userName',
-            $request->filter,
-            $searchAscOrDesc
-        );
 
-        // $result = DB::table('users')->where('userName', $request->value)->get()->toJson();
-        return response()->json($result, 200);
-    }
 
     /**
      * Show the form for creating a new resource.

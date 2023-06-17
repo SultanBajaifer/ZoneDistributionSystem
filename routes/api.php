@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group([
-    // 'middleware' => 'auth.basic'
+    // 'middleware' => 'auth.api'
 ], function () {
 
     // Route::get('complaints', function () {
@@ -89,7 +89,6 @@ Route::group([
         'update',
         'destroy'
     ]);
-    Route::get('users/{value}', 'Api\UserController@mySearch');
 
     // Route::apiResource('users', UserController::class);
     Route::apiResource('complaints', api\ComplaintController::class)->only([

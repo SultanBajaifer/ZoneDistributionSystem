@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Models\RecipientsList;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\DistributionRecord as DistributionRecordResource;
+use App\Http\Resources\RecipientList as RecipientsListResource;
 use App\Http\Resources\Address as AddressResource;
 
 
@@ -31,7 +33,7 @@ class RecipientDetaile extends JsonResource
             'residentType' => $this->residentType,
             'image' => $this->image,
             'addresses' => AddressResource::make($this->Address),
-            'RecipientsList' => $this->RecipientsList,
+            'RecipientsList' => RecipientsListResource::collection($this->RecipientsList),
             "Records" => DistributionRecordResource::collection($this->distriputionRecords),
 
 
