@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Address as AddressResource;
+use App\Http\Resources\RecipientList_copy as RecipientsListResource;
 
 
 class DistributionPoint extends JsonResource
@@ -23,7 +24,7 @@ class DistributionPoint extends JsonResource
             'creation_date' => $this->creation_date,
             'addressDistriputions' => $this->addressDistriputions,
             'user' => $this->user,
-            "address" => AddressResource::make($this->address),
+            "address" => $this->address,
         ];
     }
 }

@@ -29,11 +29,11 @@ class RecipientDetaile extends JsonResource
             'averageSalary' => $this->averageSalary,
             'workFor' => $this->workFor,
             'passportNum' => $this->passportNum,
-            'socialStatus' => $this->socialStatus,
+            'socialState' => $this->socialState,
             'residentType' => $this->residentType,
             'image' => $this->image,
             'addresses' => AddressResource::make($this->Address),
-            'RecipientsList' => RecipientsListResource::collection($this->RecipientsList),
+            // 'RecipientsList' => RecipientsListResource::collection($this->RecipientsList),
             "Records" => DistributionRecordResource::collection($this->distriputionRecords),
 
 

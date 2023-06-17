@@ -37,6 +37,26 @@ class RecipientDetaileController extends Controller
         //
     }
 
+    function Barcode($n = 0)
+    {
+
+        $userCount = RecipientDetaile::count();
+        $random = random_int(1000000, 8999999);
+        ;
+        $userCount +=
+            $random +
+            $n;
+        $barcodeNumber = 'RECIPIENT' . str_pad($userCount + 1, 7, '0', STR_PAD_BOTH);
+        $count = RecipientDetaile::where('barcode', '=', $barcodeNumber)->count();
+        if ($count == 0) {
+            return $barcodeNumber;
+        }
+        $n++;
+        return $this->Barcode($n);
+
+        // Generate a unique barcode number for the new user
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -50,25 +70,21 @@ class RecipientDetaileController extends Controller
                 "name" => "required",
                 "phoneNum" => 'required',
                 "familyCount" => 'required',
+                "birthday" => "required|date",
                 "addressID" => 'required',
                 "averageSalary" => 'required',
                 "workFor" => 'required',
                 "passportNum" => 'required',
-                "socialStatus" => 'required',
+                "socialState" => 'required',
                 "residentType" => 'required',
                 "image" => 'required',
             ]
         );
         if ($validator->getData()->success) {
             $i = $validator->getData(true);
-            $userCount = RecipientDetaile::count();
-            $random = random_int(1000000, 8999999);
-            ;
-            $userCount += $random;
 
             // Generate a unique barcode number for the new user
-            $barcodeNumber = 'RECIPIENT' . str_pad($userCount + 1, 7, '0', STR_PAD_BOTH);
-            $request->merge(['birthday' => now(), 'barcode' => $barcodeNumber]);
+            $request->merge(['barcode' => $this->Barcode()]);
             $recipient = RecipientDetaileResource::make(
                 RecipientDetaile::create($request->all())
             );
@@ -126,11 +142,12 @@ class RecipientDetaileController extends Controller
                 "name" => "required",
                 "phoneNum" => 'required',
                 "familyCount" => 'required',
+                "birthday" => "required|date",
                 "addressID" => 'required',
                 "averageSalary" => 'required',
                 "workFor" => 'required',
                 "passportNum" => 'required',
-                "socialStatus" => 'required',
+                "socialState" => 'required',
                 "residentType" => 'required',
                 "image" => 'required',
             ]

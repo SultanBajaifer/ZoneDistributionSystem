@@ -24,7 +24,7 @@ return new class extends Migration {
             $table->string('workFor', 20)->nullable();
             $table->bigInteger('passportNum')->nullable();
             $table->string('socialStatus', 20)->nullable();
-            $table->string('residentType', 10)->nullable();
+            $table->string('residentType', 20)->nullable();
             $table->string('image', 353)->nullable();
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable();

@@ -25,7 +25,7 @@ class RecipientDetaile extends Model
         'averageSalary',
         'workFor',
         'passportNum',
-        'socialStatus',
+        'socialState',
         'residentType',
         'image'
     ];
