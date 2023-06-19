@@ -230,7 +230,6 @@ class UserController extends Controller
             }
             $i = $validator->getData(true);
             $i['message'] = 'Records Updated Successfly';
-            // dd($request->all());
             $ListRecords = RecipientsList::findOrFail($request->recipientListID)->distributionRecords;
             foreach ($ListRecords as $record) {
                 if ($record->state != 'deleverd') {
@@ -240,8 +239,8 @@ class UserController extends Controller
                 }
             }
             RecipientsList::where('id', $request->recipientListID)->update(['state' => 1]);
-            $validator->setData($i);
             $i['message'] .= ' ' . 'and List Updated';
+            $validator->setData($i);
             return $validator;
         }
         return $validator;

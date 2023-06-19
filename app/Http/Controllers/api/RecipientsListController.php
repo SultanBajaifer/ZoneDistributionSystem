@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Response;
-use App\Http\Resources\RecipientList as RecipientsListResource;
+use App\Http\Resources\RecipientList_copy as RecipientsListResource;
 
 class RecipientsListController extends Controller
 {

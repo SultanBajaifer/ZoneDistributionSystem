@@ -42,7 +42,7 @@ class UserFactory extends Factory
                 return $this->state([
                     'name' => 'Mohammed',
                     'userName' => "Distributer_Mohammed",
-                    'email' => "Mohammed@gmail.com",
+                    'email' => "Mohammed@email.com",
                     'userType' => 0,
                 ]);
             default:
