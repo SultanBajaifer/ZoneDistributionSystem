@@ -178,42 +178,21 @@ class RecipientsListController extends Controller
     function complexUpdate(Request $request, $id)
     {
         $list = RecipientsList::findOrFail($id);
-        $message = '';
-        $i = 0;
-        // Adding Recipients To The List
-        if ($request->__isset('add')) {
-            foreach ($request->add as $record) {
-                $list->recipients()->attach($record['recipientID'], [
-                    'recipientName' => RecipientDetaile::findOrFail($record['recipientID'])->name,
+        $list->Recipients()->detach();
+        foreach ($request->recipients as $recipient) {
+            $list->Recipients()->attach(
+                $recipient[
+                    'recipientID'],
+                [
+                    'recipientName' => RecipientDetaile::findOrFail($recipient['recipientID'])->name,
                     "distriputionPointName" => $list->distributionPoint->name,
                     "distriputerName" => $list->distributionPoint->name,
                     "listName" => $list->name,
-                    'packageName' => Package::findOrFail($record['packageID'])->name,
-                    'packageID' => $record['packageID']
-                ]);
-                $i++;
-            }
-            $message .= "$i records added ";
+                    'packageName' => Package::findOrFail($recipient['packageID'])->name,
+                    'packageID' => $recipient['packageID']
+                ]
+            );
         }
-        $i = 0;
-        if ($request->__isset('delete')) {
-            // Deleting Recipients from the List ($request->delete is array)
-            $list->recipients()->detach($request->delete);
-            $message .= " and records Deleted ";
-        }
-
-        if ($request->__isset('update')) {
-
-            // Update Recipients From List
-            foreach ($request->update as $record) {
-                $package = Package::findOrFail($record['packageID']);
-
-                $list->recipients()->updateExistingPivot($record['recipientID'], [
-                    'packageID' => $record['packageID'],
-                    'packageName' => $package->name,
-                ]);
-            }
-        }
-        return response()->json(["Success" => "true", "Message" => $message], 200);
+        return response()->json(["Success" => "true", "Message" => "List Records are updated"], 200);
     }
 }
