@@ -133,20 +133,31 @@ class RecipientsListController extends Controller
             $request,
             [
                 "name" => "required",
-                "note" => 'required',
-                "distriputionPointID" => 'required',
-                "is_send" => 'required',
+                "note" => 'required'
 
             ]
         );
         if ($validator->getData()->success) {
             $i = $validator->getData(true);
             $RecipientList = RecipientsListResource::make(RecipientsList::findOrFail($id));
-            $RecipientList->update($request->all());
-            $i['message'] = "Recipient List Updated Succefully";
-            $i['list'] = $RecipientList;
-            $validator->setData($i);
-            return $validator;
+            if ($RecipientList->is_send == 0) {
+                $RecipientList->update($request->all());
+                foreach ($RecipientList->recipients as $recipient) {
+                    $RecipientList->recipients()->updateExistingPivot($recipient->id, [
+                        'listName' => $RecipientList->name,
+                    ]);
+
+                }
+                $i['message'] = "Recipient List Updated Succefully";
+                $i['list'] = $RecipientList;
+                $validator->setData($i);
+                return $validator;
+            }
+                return Response::json([
+                    'success' => false,
+                    'message' => 'List Is already sended',
+                ]);
+
 
         }
         return $validator;
