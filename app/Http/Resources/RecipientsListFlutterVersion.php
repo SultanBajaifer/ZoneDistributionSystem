@@ -27,7 +27,7 @@ class RecipientsListFlutterVersion extends JsonResource
 
             'id' => $this->id,
             'name' => $name,
-            'creationDate' => $this->creationDate,
+            'creationDate' => date_format($this->created_at, 'Y-m-d'),
             'state' => $this->state,
             'note' => $this->note,
             'is_send' => $this->is_send,

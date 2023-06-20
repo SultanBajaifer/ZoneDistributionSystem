@@ -83,14 +83,11 @@ class RecipientsListController extends Controller
         if ($validator->getData()->success) {
             $i = $validator->getData(true);
             $recipientList = RecipientsList::create($request->except(['recipients']));
-            $distributionPoint = DistributionPointModel::findOrFail($request->distriputionPointID);
             foreach ($request->recipients as $recipient) {
-                DistributionRecord::create([
-                    'recipientID' => $recipient['recipientID'],
-                    'recipientListID' => $recipientList->id,
+                $recipientList->recipients()->attach($recipient['recipientID'], [
                     'recipientName' => RecipientDetaile::findOrFail($recipient['recipientID'])->name,
-                    "distriputionPointName" => $distributionPoint->name,
-                    "distriputerName" => $distributionPoint->user->userName,
+                    "distriputionPointName" => $recipientList->distributionPoint->name,
+                    "distriputerName" => $recipientList->distributionPoint->name,
                     "listName" => $recipientList->name,
                     'packageName' => Package::findOrFail($recipient['packageID'])->name,
                     'packageID' => $recipient['packageID']
@@ -169,5 +166,54 @@ class RecipientsListController extends Controller
             ],
             202
         );
+    }
+
+    function send($id)
+    {
+        $list = RecipientsList::findOrFail($id);
+        $list->update(['is_send' => 1]);
+        return response()->json(["Success" => "True", "Message" => "list is send"], 200);
+    }
+
+    function complexUpdate(Request $request, $id)
+    {
+        $list = RecipientsList::findOrFail($id);
+        $message = '';
+        $i = 0;
+        // Adding Recipients To The List
+        if ($request->__isset('add')) {
+            foreach ($request->add as $record) {
+                $list->recipients()->attach($record['recipientID'], [
+                    'recipientName' => RecipientDetaile::findOrFail($record['recipientID'])->name,
+                    "distriputionPointName" => $list->distributionPoint->name,
+                    "distriputerName" => $list->distributionPoint->name,
+                    "listName" => $list->name,
+                    'packageName' => Package::findOrFail($record['packageID'])->name,
+                    'packageID' => $record['packageID']
+                ]);
+                $i++;
+            }
+            $message .= "$i records added ";
+        }
+        $i = 0;
+        if ($request->__isset('delete')) {
+            // Deleting Recipients from the List ($request->delete is array)
+            $list->recipients()->detach($request->delete);
+            $message .= " and records Deleted ";
+        }
+
+        if ($request->__isset('update')) {
+
+            // Update Recipients From List
+            foreach ($request->update as $record) {
+                $package = Package::findOrFail($record['packageID']);
+
+                $list->recipients()->updateExistingPivot($record['recipientID'], [
+                    'packageID' => $record['packageID'],
+                    'packageName' => $package->name,
+                ]);
+            }
+        }
+        return response()->json(["Success" => "true", "Message" => $message], 200);
     }
 }

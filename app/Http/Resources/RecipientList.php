@@ -20,7 +20,7 @@ class RecipientList extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'creationDate' => $this->creationDate,
+            'creationDate' => date_format($this->created_at, 'Y-m-d'),
             'state' => $this->state,
             'note' => $this->note,
             'is_send' => $this->is_send,

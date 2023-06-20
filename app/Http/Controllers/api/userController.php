@@ -181,7 +181,7 @@ class UserController extends Controller
 
                 $field['id'] = $RecipientList->id;
                 $field['name'] = $RecipientList->name;
-                $field['creationDate'] = $RecipientList->creationDate;
+                $field['creationDate'] = date_format($RecipientList->created_at, 'Y-m-d');
                 $field['state'] = $RecipientList->state;
                 $field['note'] = $RecipientList->note;
                 $field['is_send'] = $RecipientList->is_send; // $field['recipients'] = new RecipientDetaileResource($RecipientList->recipients, $RecipientList->name);

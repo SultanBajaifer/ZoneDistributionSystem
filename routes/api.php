@@ -57,10 +57,7 @@ Route::group([
     //     'items/{id}/package',
     //     'RelationshipsController@itemPackage'
     // );
-    // Route::get(
-    //     'recipientsList/{id}/recipient',
-    //     'RelationshipsController@recupientListRecipients'
-    // );
+
     // Route::get(
     //     'recipientsList/{id}/distributionPoints',
     //     'RelationshipsController@recupientListDistributionPoints'
@@ -99,7 +96,13 @@ Route::group([
     Route::get('search', 'api\BaseController@querySearch');
     Route::get('download/{id}', 'api\UserController@sendRecipientsList');
     Route::post('upload', 'api\UserController@reciveRecipientsList');
+    Route::post('sendList/{id}', 'api\RecipientsListController@send');
     Route::post('complexStore', 'api\RecipientsListController@complexStore');
+    Route::post('complexUpdate/{id}', 'api\RecipientsListController@complexUpdate');
+    Route::get(
+        'list/{id}/records',
+        'RelationshipsController@recupientListRecipients'
+    );
     Route::apiResource('items', api\ItemController::class);
     Route::apiResource('addresses', api\AddressController::class);
     Route::apiResource('packages', api\PackageController::class);

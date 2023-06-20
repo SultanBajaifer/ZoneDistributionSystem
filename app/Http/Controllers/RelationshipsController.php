@@ -92,23 +92,23 @@ class RelationshipsController extends Controller
     public function recupientListRecipients($id)
     {
         $list = RecipientsList::findOrFail($id);
-        $Recipients = $list->Recipients;
+        $distributionRecords = $list->distributionRecords;
         $field = array();
         $filtered = array();
-        foreach ($Recipients as $Recipient) {
-            $field['id'] = $Recipient->id;
-            $field['name'] = $Recipient->name;
-            $field['phoneNum'] = $Recipient->phoneNum;
-            $field['barcode'] = $Recipient->barcode;
-            $field['familyCount'] = $Recipient->familyCount;
-            $field['addressID'] = $Recipient->addressID;
-            $field['birthday'] = $Recipient->birthday;
-            $field['averageSalary'] = $Recipient->averageSalary;
-            $field['workFor'] = $Recipient->workFor;
-            $field['passportNum'] = $Recipient->passportNum;
-            $field['socialStatus'] = $Recipient->socialStatus;
-            $field['residentType'] = $Recipient->residentType;
-            $field['records'] = $Recipient->distriputionRecords->where('listName', $list->name);
+        foreach ($distributionRecords as $record) {
+            $field['id'] = $record->recipientDetails->id;
+            $field['name'] = $record->recipientDetails->name;
+            $field['phoneNum'] = $record->recipientDetails->phoneNum;
+            $field['barcode'] = $record->recipientDetails->barcode;
+            $field['familyCount'] = $record->recipientDetails->familyCount;
+            $field['addressID'] = $record->recipientDetails->addressID;
+            $field['birthday'] = $record->recipientDetails->birthday;
+            $field['averageSalary'] = $record->recipientDetails->averageSalary;
+            $field['workFor'] = $record->recipientDetails->workFor;
+            $field['passportNum'] = $record->recipientDetails->passportNum;
+            $field['socialState'] = $record->recipientDetails->socialState;
+            $field['residentType'] = $record->recipientDetails->residentType;
+            $field['package'] = $record->package;
             $filtered[] = $field;
         }
         return Response::json(['data' => $filtered], 200);
@@ -145,7 +145,6 @@ class RelationshipsController extends Controller
             $field['distriputionPointName'] = $distributionRecord->distriputionPointName;
             $field['distriputerName'] = $distributionRecord->distriputerName;
             $field['package'] = $distributionRecord->package;
-            $field['listName'] = $distributionRecord->listName;
             $filtered[] = $field;
         }
         return Response::json(['data' => $filtered], 200);
