@@ -178,21 +178,27 @@ class RecipientsListController extends Controller
     function complexUpdate(Request $request, $id)
     {
         $list = RecipientsList::findOrFail($id);
-        $list->Recipients()->detach();
-        foreach ($request->recipients as $recipient) {
-            $list->Recipients()->attach(
-                $recipient[
-                    'recipientID'],
-                [
-                    'recipientName' => RecipientDetaile::findOrFail($recipient['recipientID'])->name,
-                    "distriputionPointName" => $list->distributionPoint->name,
-                    "distriputerName" => $list->distributionPoint->name,
-                    "listName" => $list->name,
-                    'packageName' => Package::findOrFail($recipient['packageID'])->name,
-                    'packageID' => $recipient['packageID']
-                ]
-            );
+        if ($list->is_send == 0) {
+
+
+            $list->Recipients()->detach();
+            foreach ($request->recipients as $recipient) {
+                $list->Recipients()->attach(
+                    $recipient[
+                        'recipientID'],
+                    [
+                        'recipientName' => RecipientDetaile::findOrFail($recipient['recipientID'])->name,
+                        "distriputionPointName" => $list->distributionPoint->name,
+                        "distriputerName" => $list->distributionPoint->name,
+                        "listName" => $list->name,
+                        'packageName' => Package::findOrFail($recipient['packageID'])->name,
+                        'packageID' => $recipient['packageID']
+                    ]
+                );
+            }
+            return response()->json(["Success" => "true", "Message" => "List Records are updated"], 200);
         }
-        return response()->json(["Success" => "true", "Message" => "List Records are updated"], 200);
+        return response()->json(["Success" => "flase", "Message" => "List is already sended"], 200);
+
     }
 }
