@@ -12,27 +12,7 @@ class LoginController extends BaseController
 {
 
 
-    function __construct()
-    {
-        // $this->middleware('auth.basic.once');
-    }
 
-    public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            $AccessToken = Auth::user()->createToken('Access Token')->accessToken;
 
-            return Response([
-                'user' => new UserResource(Auth::user())
-                ,
-                'Access Token' => $AccessToken
-            ]);
-        } else {
-            return response()->json([
-                'message' => 'Invalid credentials'
-            ], 401);
-        }
-    }
 }

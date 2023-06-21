@@ -153,10 +153,10 @@ class RecipientsListController extends Controller
                 $validator->setData($i);
                 return $validator;
             }
-                return Response::json([
-                    'success' => false,
-                    'message' => 'List Is already sended',
-                ]);
+            return Response::json([
+                'success' => false,
+                'message' => 'List Is already sended',
+            ]);
 
 
         }
@@ -179,12 +179,7 @@ class RecipientsListController extends Controller
         );
     }
 
-    function send($id)
-    {
-        $list = RecipientsList::findOrFail($id);
-        $list->update(['is_send' => 1]);
-        return response()->json(["Success" => "True", "Message" => "list is send"], 200);
-    }
+
 
     function complexUpdate(Request $request, $id)
     {
@@ -211,5 +206,29 @@ class RecipientsListController extends Controller
         }
         return response()->json(["Success" => "flase", "Message" => "List is already sended"], 200);
 
+    }
+    public function recipientListRecipients($id)
+    {
+        $list = RecipientsList::findOrFail($id);
+        $distributionRecords = $list->distributionRecords;
+        $field = array();
+        $filtered = array();
+        foreach ($distributionRecords as $record) {
+            $field['id'] = $record->recipientDetails->id;
+            $field['name'] = $record->recipientDetails->name;
+            $field['phoneNum'] = $record->recipientDetails->phoneNum;
+            $field['barcode'] = $record->recipientDetails->barcode;
+            $field['familyCount'] = $record->recipientDetails->familyCount;
+            $field['addressID'] = $record->recipientDetails->addressID;
+            $field['birthday'] = $record->recipientDetails->birthday;
+            $field['averageSalary'] = $record->recipientDetails->averageSalary;
+            $field['workFor'] = $record->recipientDetails->workFor;
+            $field['passportNum'] = $record->recipientDetails->passportNum;
+            $field['socialState'] = $record->recipientDetails->socialState;
+            $field['residentType'] = $record->recipientDetails->residentType;
+            $field['package'] = $record->package;
+            $filtered[] = $field;
+        }
+        return Response::json(['data' => $filtered], 200);
     }
 }

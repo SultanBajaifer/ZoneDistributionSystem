@@ -79,7 +79,7 @@ Route::group([
     //     'RelationshipsController@recipientDetailsRecipientsList'
     // );
 
-    Route::apiResource('users', 'Api\UserController')->only([
+    Route::apiResource('users', 'Api\CenterController')->only([
         'index',
         'show',
         'store',
@@ -94,14 +94,14 @@ Route::group([
         'store'
     ]);
     Route::get('search', 'api\BaseController@querySearch');
-    Route::get('download/{id}', 'api\UserController@sendRecipientsList');
-    Route::post('upload', 'api\UserController@reciveRecipientsList');
-    Route::post('sendList/{id}', 'api\RecipientsListController@send');
+    Route::get('download/{id}', 'api\DistributerController@downloadList');
+    Route::post('upload', 'api\DistributerController@UploadList');
+    Route::post('sendList/{id}', 'api\CenterController@SendList');
     Route::post('complexStore', 'api\RecipientsListController@complexStore');
     Route::post('complexUpdate/{id}', 'api\RecipientsListController@complexUpdate');
     Route::get(
         'list/{id}/records',
-        'RelationshipsController@recupientListRecipients'
+        'api\RecipientsListController@recipientListRecipients'
     );
     Route::apiResource('items', api\ItemController::class);
     Route::apiResource('addresses', api\AddressController::class);
@@ -127,4 +127,4 @@ Route::group([
 
 });
 ##  Login Routse    ###
-Route::post('login', 'api\LoginController@login');
+Route::post('login', 'api\UserController@login');

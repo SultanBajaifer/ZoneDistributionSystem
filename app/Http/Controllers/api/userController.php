@@ -7,6 +7,7 @@ use App\Http\Resources\DistributionRecordFlutter as DistributionRecordResource;
 use App\Models\DistributionRecord;
 use App\Models\RecipientsList;
 use App\Models\User;
+use Auth;
 use DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -21,228 +22,27 @@ use App\Http\Resources\User as UserResource;
 class UserController extends Controller
 {
 
-    public function __construct()
+    function __construct()
     {
-        // $this->authorizeResource(User::class, 'user');
-        // $this->middleware('auth:api')->except(['index', 'show']);
+        // $this->middleware('auth.basic.once');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     */
-    public function index()
+    public function login(Request $request)
     {
-        $user = UserResource::collection(User::paginate());
-        return $user->response()->setStatusCode(200, "User Returned Succefully")->
-            header("Addestionl Header", "true");
-    }
-    /**
-     * Search in the model.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+        $credentials = $request->only('email', 'password');
 
+        if (Auth::attempt($credentials)) {
+            $AccessToken = Auth::user()->createToken('Access Token')->accessToken;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function store(Request $request)
-    {
-        // $this->authorize('create', User::class);
-
-        $validator = $this->validate(
-            $request,
-            [
-                'name' => 'required',
-                'userName' => 'required',
-                'email' => 'required',
-                'password' => 'required'
-            ]
-        );
-        if ($validator->getData()->success) {
-            $i = $validator->getData(true);
-            if ($request->password != null) {
-                $request['password'] = Hash::make($request->password);
-            }
-
-
-            $user = UserResource::make(User::create($request->all()));
-            $i['message'] = "User Created Succefully";
-            $i['new value'] = $user;
-            $validator->setData($i);
-            return $validator;
+            return Response([
+                'user' => new UserResource(Auth::user())
+                ,
+                'Access Token' => $AccessToken
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Invalid credentials'
+            ], 401);
         }
-        return $validator;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     */
-    public function show($id)
-    {
-
-        $user = UserResource::make(User::findOrFail($id));
-        return $user->response()->setStatusCode(200, "User Returned Succefully")->
-            header("Addestionl Header", "true");
-
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     */
-    public function update($id, Request $request)
-    {
-        $validator = $this->validate(
-            $request,
-            [
-                'name' => 'required',
-                'userName' => 'required',
-                'userType' => 'required',
-                'email' => 'required',
-                'addressID' => 'required'
-            ]
-        );
-        if ($validator->getData()->success) {
-            $i = $validator->getData(true);
-            if ($request->password != null)
-                $request['password'] = Hash::make($request->password);
-            // $idUser = User::findOrFail($id);
-            // $this->authorize("update", $idUser);
-            $user = UserResource::make(User::findorFail($id));
-            $user->update($request->all());
-            $i['message'] = "user Updated Succefully";
-            $i['new value'] = $user;
-            $validator->setData($i);
-            return $validator;
-        }
-        return $validator;
-
-
-
-    }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     */
-    public function destroy($id)
-    {
-
-        $data = User::findOrFail($id);
-        // $this->authorize("update", $data);
-        $data->delete();
-        return Response::json(
-            [
-                'Deleted User' => $data
-            ],
-            202
-        );
-
-    }
-    public function sendRecipientsList($id)
-    {
-        $RecipientLists = DistributionPoint::findOrFail($id)->recipientsLists;
-        $field = array();
-        $filtered = array();
-        foreach ($RecipientLists as $RecipientList) {
-            if ($RecipientList->is_send == 1) {
-
-                $field['id'] = $RecipientList->id;
-                $field['name'] = $RecipientList->name;
-                $field['creationDate'] = date_format($RecipientList->created_at, 'Y-m-d');
-                $field['state'] = $RecipientList->state;
-                $field['note'] = $RecipientList->note;
-                $field['is_send'] = $RecipientList->is_send; // $field['recipients'] = new RecipientDetaileResource($RecipientList->recipients, $RecipientList->name);
-                $field['Records'] = DistributionRecordResource::collection($RecipientList->distributionRecords->where('state', '=', 'Not'));
-                $filtered[] = $field;
-            }
-        }
-        return Response::json(['data' => $filtered], 200);
-
-    }
-
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\jsonResponse
-     */
-    public function reciveRecipientsList(Request $request)
-    {
-        $validator = $this->validate(
-            $request,
-            [
-                'recipientListID' => 'required',
-                'MyRecords' => 'required|array'
-            ]
-        );
-        if ($validator->getData()->success) {
-
-
-            $i = 0;
-
-            foreach ($request->MyRecords as $record) {
-                $result = DistributionRecordResource::make(
-                    DistributionRecord::where('id', $record)
-                    // ->where('recipientListID', $request->recipientListID)
-                );
-                if (!is_Null($result)) {
-                    $result->update(['state' => 'deleverd', 'recrptionDate' => now()]);
-                }
-                // $arr[] = $record->id;
-                // $request->merge(["value {$i}" => $record]);
-                // $i++;
-
-            }
-            $i = $validator->getData(true);
-            $i['message'] = 'Records Updated Successfly';
-            $ListRecords = RecipientsList::findOrFail($request->recipientListID)->distributionRecords;
-            foreach ($ListRecords as $record) {
-                if ($record->state != 'deleverd') {
-                    $i['message'] .= ' ' . "but there still some records have not been deleverd";
-                    $validator->setData($i);
-                    return $validator;
-                }
-            }
-            RecipientsList::where('id', $request->recipientListID)->update(['state' => 1]);
-            $i['message'] .= ' ' . 'and List Updated';
-            $validator->setData($i);
-            return $validator;
-        }
-        return $validator;
-    }
 }

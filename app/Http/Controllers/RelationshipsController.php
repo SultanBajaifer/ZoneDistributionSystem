@@ -89,30 +89,7 @@ class RelationshipsController extends Controller
     }
 
     # RecipientList Functions
-    public function recupientListRecipients($id)
-    {
-        $list = RecipientsList::findOrFail($id);
-        $distributionRecords = $list->distributionRecords;
-        $field = array();
-        $filtered = array();
-        foreach ($distributionRecords as $record) {
-            $field['id'] = $record->recipientDetails->id;
-            $field['name'] = $record->recipientDetails->name;
-            $field['phoneNum'] = $record->recipientDetails->phoneNum;
-            $field['barcode'] = $record->recipientDetails->barcode;
-            $field['familyCount'] = $record->recipientDetails->familyCount;
-            $field['addressID'] = $record->recipientDetails->addressID;
-            $field['birthday'] = $record->recipientDetails->birthday;
-            $field['averageSalary'] = $record->recipientDetails->averageSalary;
-            $field['workFor'] = $record->recipientDetails->workFor;
-            $field['passportNum'] = $record->recipientDetails->passportNum;
-            $field['socialState'] = $record->recipientDetails->socialState;
-            $field['residentType'] = $record->recipientDetails->residentType;
-            $field['package'] = $record->package;
-            $filtered[] = $field;
-        }
-        return Response::json(['data' => $filtered], 200);
-    }
+
     public function recupientListDistributionPoints($id)
     {
         $DistributionPoints = RecipientsList::findOrFail($id)->DistributionPoints;
