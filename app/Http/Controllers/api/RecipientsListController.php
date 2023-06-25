@@ -141,12 +141,21 @@ class RecipientsListController extends Controller
             $i = $validator->getData(true);
             $RecipientList = RecipientsListResource::make(RecipientsList::findOrFail($id));
             if ($RecipientList->is_send == 0) {
-                $RecipientList->update($request->all());
-                foreach ($RecipientList->recipients as $recipient) {
-                    $RecipientList->recipients()->updateExistingPivot($recipient->id, [
-                        'listName' => $RecipientList->name,
-                    ]);
-
+                $RecipientList->update($request->except('recipients'));
+                $RecipientList->Recipients()->detach();
+                foreach ($request->recipients as $recipient) {
+                    $RecipientList->Recipients()->attach(
+                        $recipient[
+                            'recipientID'],
+                        [
+                            'recipientName' => RecipientDetaile::findOrFail($recipient['recipientID'])->name,
+                            "distriputionPointName" => $RecipientList->distributionPoint->name,
+                            "distriputerName" => $RecipientList->distributionPoint->name,
+                            "listName" => $RecipientList->name,
+                            'packageName' => Package::findOrFail($recipient['packageID'])->name,
+                            'packageID' => $recipient['packageID']
+                        ]
+                    );
                 }
                 $i['message'] = "Recipient List Updated Succefully";
                 $i['list'] = $RecipientList;
@@ -181,32 +190,7 @@ class RecipientsListController extends Controller
 
 
 
-    function complexUpdate(Request $request, $id)
-    {
-        $list = RecipientsList::findOrFail($id);
-        if ($list->is_send == 0) {
 
-
-            $list->Recipients()->detach();
-            foreach ($request->recipients as $recipient) {
-                $list->Recipients()->attach(
-                    $recipient[
-                        'recipientID'],
-                    [
-                        'recipientName' => RecipientDetaile::findOrFail($recipient['recipientID'])->name,
-                        "distriputionPointName" => $list->distributionPoint->name,
-                        "distriputerName" => $list->distributionPoint->name,
-                        "listName" => $list->name,
-                        'packageName' => Package::findOrFail($recipient['packageID'])->name,
-                        'packageID' => $recipient['packageID']
-                    ]
-                );
-            }
-            return response()->json(["Success" => "true", "Message" => "List Records are updated"], 200);
-        }
-        return response()->json(["Success" => "flase", "Message" => "List is already sended"], 200);
-
-    }
     public function recipientListRecipients($id)
     {
         $list = RecipientsList::findOrFail($id);
@@ -229,6 +213,6 @@ class RecipientsListController extends Controller
             $field['package'] = $record->package;
             $filtered[] = $field;
         }
-        return Response::json(['data' => $filtered], 200);
+        return Response::json(["list" => $list, 'recipients' => $filtered], 200);
     }
 }

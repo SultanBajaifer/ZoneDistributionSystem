@@ -98,7 +98,6 @@ Route::group([
     Route::post('upload', 'api\DistributerController@UploadList');
     Route::post('sendList/{id}', 'api\CenterController@SendList');
     Route::post('complexStore', 'api\RecipientsListController@complexStore');
-    Route::post('complexUpdate/{id}', 'api\RecipientsListController@complexUpdate');
     Route::get(
         'list/{id}/records',
         'api\RecipientsListController@recipientListRecipients'
