@@ -39,6 +39,14 @@ class RecipientsListController extends Controller
         //
     }
 
+    public function listName(string $name)
+    {
+        if (RecipientsList::where('name', '=', $name)->count() > 0) {
+            return 400;
+        }
+        return 200;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -53,6 +61,10 @@ class RecipientsListController extends Controller
                 "note" => 'required',
             ]
         );
+        $state = $this->listName($request->name);
+        if ($state == 400) {
+            return response()->json('There are list with this name', 400);
+        }
         if ($validator->getData()->success) {
             $i = $validator->getData(true);
             $item = RecipientsListResource::make(RecipientsList::create($request->all()));
@@ -80,6 +92,10 @@ class RecipientsListController extends Controller
 
             ]
         );
+        $state = $this->listName($request->name);
+        if ($state == 400) {
+            return response()->json('There are list with this name', 400);
+        }
         if ($validator->getData()->success) {
             $i = $validator->getData(true);
             $recipientList = RecipientsList::create($request->except(['recipients']));
@@ -87,7 +103,7 @@ class RecipientsListController extends Controller
                 $recipientList->recipients()->attach($recipient['recipientID'], [
                     'recipientName' => RecipientDetaile::findOrFail($recipient['recipientID'])->name,
                     "distriputionPointName" => $recipientList->distributionPoint->name,
-                    "distriputerName" => $recipientList->distributionPoint->name,
+                    "distriputerName" => $recipientList->distributionPoint->user->name,
                     "listName" => $recipientList->name,
                     'packageName' => Package::findOrFail($recipient['packageID'])->name,
                     'packageID' => $recipient['packageID']
@@ -137,6 +153,10 @@ class RecipientsListController extends Controller
 
             ]
         );
+        $state = $this->listName($request->name);
+        if ($state == 400) {
+            return response()->json('There are list with this name', 401);
+        }
         if ($validator->getData()->success) {
             $i = $validator->getData(true);
             $RecipientList = RecipientsListResource::make(RecipientsList::findOrFail($id));
