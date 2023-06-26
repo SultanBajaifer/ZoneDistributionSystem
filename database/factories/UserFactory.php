@@ -24,7 +24,6 @@ class UserFactory extends Factory
 
             'password' => Hash::make('password'),
             // password
-            'userType' => 1,
             'addressID' => $this->faker->numberBetween(10, 20),
         ];
     }

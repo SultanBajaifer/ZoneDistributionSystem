@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('state', 12)->nullable()->default('Active');
             $table->string('addressDistriputions', 535)->nullable();
             $table->dateTime('creation_date')->nullable()->useCurrent();
-            $table->integer('userID')->nullable()->index('FK_DistributionPoints_users');
-            $table->integer('addressID')->nullable()->index('FK_DistributionPoints_Addresses');
+            $table->integer('userID')->nullable();
+            $table->integer('addressID')->nullable();
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable();
         });

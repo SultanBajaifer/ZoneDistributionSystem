@@ -18,7 +18,6 @@ class DistributionPointFactory extends Factory
     {
         return [
             'name' => $this->faker->text(20),
-            'state' => $this->faker->text(12),
             'userID' => 2,
             'addressID' => $this->faker->numberBetween(1, 20),
         ];

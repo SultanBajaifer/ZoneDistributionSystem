@@ -17,12 +17,16 @@ class DistributionRecordFlutter extends JsonResource
     public function toArray($request)
     {
         $recipient = $this->recipientDetails;
+        $this->recrptionDate == null
+            ? $recrptionDate = "0000-00-00"
+            : $recrptionDate = $this->recrptionDate;
+
 
 
         return [
             'id' => $this->recipientID,
             'recipientName' => $recipient->name,
-            'recrptionDate' => $recipient->phoneNum,
+            'recrptionDate' => $recrptionDate,
             'barcode' => $recipient->barcode,
             'familyCount' => $recipient->familyCount,
             'birthday' => $recipient->birthday,

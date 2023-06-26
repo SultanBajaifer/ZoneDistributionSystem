@@ -77,12 +77,15 @@ class DistributerController extends Controller
         $field = array();
         $filtered = array();
         foreach ($RecipientLists as $RecipientList) {
+            $RecipientList->state == null
+                ? $state = 0
+                : $state = $RecipientList->state;
             if ($RecipientList->is_send == 1) {
 
                 $field['id'] = $RecipientList->id;
                 $field['name'] = $RecipientList->name;
                 $field['creationDate'] = date_format($RecipientList->created_at, 'Y-m-d');
-                $field['state'] = $RecipientList->state;
+                $field['state'] = $state;
                 $field['note'] = $RecipientList->note;
                 $field['is_send'] = $RecipientList->is_send; // $field['recipients'] = new RecipientDetaileResource($RecipientList->recipients, $RecipientList->name);
                 $field['Records'] = DistributionRecordResource::collection($RecipientList->distributionRecords->where('state', '=', 'Not'));

@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -15,7 +16,7 @@ return new class extends Migration {
         Schema::create('recipientslist', function (Blueprint $table) {
             $table->bigInteger('id', true);
             $table->string('name', 50)->nullable()->unique('name');
-            $table->string('state', 50)->default('0');
+            $table->string('state', 50)->nullable()->default('0');
             $table->string('note', 353)->nullable();
             $table->tinyInteger('is_send')->nullable()->default(0);
             $table->integer('distriputionPointID')->nullable()->index('distriputionPointID');

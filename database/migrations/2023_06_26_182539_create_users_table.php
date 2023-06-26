@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('password', 353)->nullable();
             $table->string('email', 50)->nullable();
             $table->integer('userType')->nullable();
-            $table->integer('addressID')->nullable()->index('FK_users_Addresses');
+            $table->integer('phoneNum')->nullable();
+            $table->integer('addressID')->nullable();
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable();
             $table->dateTime('email_verified_at')->nullable();

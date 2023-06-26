@@ -20,7 +20,7 @@ class DistributionPoint extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'state' => $this->state,
-            'creation_date' => $this->creation_date,
+            'creation_date' => date_format($this->created_at, 'Y-m-d'),
             'addressDistriputions' => $this->addressDistriputions,
             'user' => $this->user,
             "address" => $this->address,

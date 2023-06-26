@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name', 50)->nullable();
             $table->integer('quentity')->nullable();
             $table->string('unit', 20)->nullable();
-            $table->integer('packageID')->nullable()->index('FK_Items_Packages');
+            $table->integer('packageID')->nullable()->index('packageID');
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable();
         });
