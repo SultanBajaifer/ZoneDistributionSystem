@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -17,7 +16,7 @@ return new class extends Migration
             $table->integer('id', true);
             $table->string('complainterName', 30)->nullable();
             $table->string('discription', 353)->nullable();
-            $table->integer('userID')->nullable()->index('userID');
+            $table->integer('userID')->index('userID');
             $table->dateTime('date')->nullable();
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable();

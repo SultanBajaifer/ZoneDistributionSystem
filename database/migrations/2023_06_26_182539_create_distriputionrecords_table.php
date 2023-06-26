@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -15,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('distriputionrecords', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('recipientID')->nullable();
+            $table->integer('recipientID');
             $table->dateTime('recrptionDate')->nullable();
             $table->string('state', 12)->nullable()->default('Not');
             $table->integer('recipientListID');
@@ -24,7 +23,7 @@ return new class extends Migration
             $table->string('distriputerName', 50)->nullable();
             $table->string('listName', 50)->nullable();
             $table->string('packageName', 50)->nullable();
-            $table->integer('packageID')->nullable();
+            $table->integer('packageID');
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable();
         });
