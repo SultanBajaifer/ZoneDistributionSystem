@@ -34,7 +34,7 @@ class UserController extends Controller
             $AccessToken = Auth::user()->createToken('Access Token')->accessToken;
 
             return Response([
-                'user' => new UserResource(Auth::user())
+                'user' => UserResource::make(Auth::user())
                 ,
                 'Access Token' => $AccessToken
             ]);

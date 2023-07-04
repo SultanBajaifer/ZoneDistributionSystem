@@ -28,9 +28,10 @@ class RecipientDetaileFactory extends Factory
             'averageSalary' => $this->faker->randomFloat(),
             'workFor' => substr($this->faker->company(), 0, 20),
             'passportNum' => $this->faker->randomNumber(9),
+            'addresID' => $this->faker->randomNumber(20),
             'socialState' => $this->faker->text(20),
             'residentType' => $this->faker->text(10),
-            'image' => $this->faker->image()
+            'image' => ''
         ];
     }
 }

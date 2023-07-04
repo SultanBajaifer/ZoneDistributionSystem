@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -18,7 +17,6 @@ return new class extends Migration
             $table->string('name', 50)->nullable();
             $table->string('state', 12)->nullable()->default('Active');
             $table->string('addressDistriputions', 535)->nullable();
-            $table->dateTime('creation_date')->nullable()->useCurrent();
             $table->integer('userID')->nullable();
             $table->integer('addressID')->nullable();
             $table->dateTime('created_at')->nullable()->useCurrent();

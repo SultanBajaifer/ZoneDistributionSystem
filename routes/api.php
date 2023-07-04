@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group([
-    // 'middleware' => 'auth.api'
+    // 'middleware' => 'auth:api'
 ], function () {
 
     // Route::get('complaints', function () {
@@ -126,4 +126,4 @@ Route::group([
 
 });
 ##  Login Routse    ###
-Route::post('login', 'api\UserController@login');
+Route::any('login', 'api\UserController@login')->name('login');

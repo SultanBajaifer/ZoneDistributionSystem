@@ -32,29 +32,27 @@ class RecipientDetaileController extends Controller
      * Show the form for creating a new resource.
      *
      */
-    public function create()
+    public function CreateBarcode($n = 1, $barcodeArray = [])
     {
-        //
-    }
-
-    function Barcode($n = 0)
-    {
-
-        $userCount = RecipientDetaile::count();
         $random = random_int(1000000, 8999999);
-        ;
-        $userCount +=
-            $random +
+
+        $random +=
             $n;
-        $barcodeNumber = 'RECIPIENT' . str_pad($userCount + 1, 7, '0', STR_PAD_BOTH);
-        $count = RecipientDetaile::where('barcode', '=', $barcodeNumber)->count();
-        if ($count == 0) {
+        $barcodeNumber = 'RECIPIENT' . str_pad($random + 1, 8, '0', STR_PAD_BOTH);
+        if (!in_array($barcodeNumber, $barcodeArray)) {
             return $barcodeNumber;
         }
         $n++;
-        return $this->Barcode($n);
+        return $this->CreateBarcode($n, $barcodeArray);
 
         // Generate a unique barcode number for the new user
+    }
+
+    function Barcode()
+    {
+        $barrcodeArray = RecipientDetaile::all()->pluck('barcode')->toArray();
+        return $this->CreateBarcode(1, $barrcodeArray);
+
     }
 
     /**
@@ -81,8 +79,8 @@ class RecipientDetaileController extends Controller
             ]
         );
         if ($validator->getData()->success) {
-            $i = $validator->getData(true);
 
+            $i = $validator->getData(true);
             // Generate a unique barcode number for the new user
             $request->merge(['barcode' => $this->Barcode()]);
             $recipient = RecipientDetaileResource::make(

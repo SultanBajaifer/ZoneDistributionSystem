@@ -80,7 +80,7 @@ class DistributerController extends Controller
             $RecipientList->state == null
                 ? $state = 0
                 : $state = $RecipientList->state;
-            if ($RecipientList->is_send == 1) {
+            if ($RecipientList->is_send == 1 && $RecipientList->state == 0) {
 
                 $field['id'] = $RecipientList->id;
                 $field['name'] = $RecipientList->name;

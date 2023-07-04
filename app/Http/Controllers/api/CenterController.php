@@ -62,6 +62,10 @@ class CenterController extends Controller
             ]
         );
         if ($validator->getData()->success) {
+            $emailArray = User::all()->pluck('email')->toArray();
+            if (in_array($request->email, $emailArray)) {
+                return response()->json(['message' => 'email already used'], 400);
+            }
             $i = $validator->getData(true);
             if ($request->password != null) {
                 $request['password'] = Hash::make($request->password);
@@ -120,6 +124,10 @@ class CenterController extends Controller
             ]
         );
         if ($validator->getData()->success) {
+            $emailArray = User::all()->pluck('email')->toArray();
+            if (in_array($request->email, $emailArray)) {
+                return response()->json(['message' => 'email already used'], 400);
+            }
             $i = $validator->getData(true);
             if ($request->password != null)
                 $request['password'] = Hash::make($request->password);

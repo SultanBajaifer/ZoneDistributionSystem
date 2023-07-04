@@ -35,6 +35,7 @@ class DistributionRecordFlutter extends JsonResource
             'passportNum' => $recipient->passportNum,
             "socialState" => $recipient->socialState,
             "residentType" => $recipient->residentType,
+            'pacakgeName' => $this->packageName,
             "recordID" => $this->id,
 
         ];
