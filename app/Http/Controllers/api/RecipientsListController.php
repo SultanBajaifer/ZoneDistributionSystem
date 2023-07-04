@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 // use App\Http\Controllers\Controller;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Response;
 use App\Http\Resources\RecipientList_copy as RecipientsListResource;
 
@@ -85,17 +86,16 @@ class RecipientsListController extends Controller
         $validator = $this->validate(
             $request,
             [
-                "name" => "required",
+                "name" => [
+                    "required",
+                    Rule::unique('recipientslist')
+                ],
                 "note" => 'required',
                 "distriputionPointID" => 'required',
                 "recipients" => 'required|array',
 
             ]
         );
-        $state = $this->listName($request->name);
-        if ($state == 400) {
-            return response()->json('There are list with this name', 400);
-        }
         if ($validator->getData()->success) {
             $i = $validator->getData(true);
             $recipientList = RecipientsList::create($request->except(['recipients']));
@@ -145,21 +145,23 @@ class RecipientsListController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $list = RecipientsList::findOrFail($id);
         $validator = $this->validate(
             $request,
             [
-                "name" => "required",
+                "name" => [
+                    "required",
+                    "string",
+                    Rule::unique('recipientslist')->ignore($list->id)
+                ],
                 "note" => 'required'
 
             ]
         );
-        $state = $this->listName($request->name);
-        if ($state == 400) {
-            return response()->json('There are list with this name', 401);
-        }
+
         if ($validator->getData()->success) {
             $i = $validator->getData(true);
-            $RecipientList = RecipientsListResource::make(RecipientsList::findOrFail($id));
+            $RecipientList = RecipientsListResource::make($list);
             if ($RecipientList->is_send == 0) {
                 $RecipientList->update($request->except('recipients'));
                 $RecipientList->Recipients()->detach();

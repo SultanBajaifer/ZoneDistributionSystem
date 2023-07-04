@@ -8,6 +8,7 @@ use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
 use App\Http\Resources\User as UserResource;
+use Illuminate\Validation\Rule;
 use Response;
 
 
@@ -57,15 +58,19 @@ class CenterController extends Controller
             [
                 'name' => 'required',
                 'userName' => 'required',
-                'email' => 'required',
-                'password' => 'required'
+                'password' => 'required',
+                'email' => [
+                    'required',
+                    'string',
+                    'email',
+                    'max:255',
+                    Rule::unique('users'),
+                ]
+
             ]
         );
         if ($validator->getData()->success) {
-            $emailArray = User::all()->pluck('email')->toArray();
-            if (in_array($request->email, $emailArray)) {
-                return response()->json(['message' => 'email already used'], 400);
-            }
+
             $i = $validator->getData(true);
             if ($request->password != null) {
                 $request['password'] = Hash::make($request->password);
@@ -114,20 +119,24 @@ class CenterController extends Controller
      */
     public function update($id, Request $request)
     {
+        $user = User::findOrFail($id);
         $validator = $this->validate(
             $request,
             [
                 'name' => 'required',
                 'userName' => 'required',
-                'email' => 'required',
-                'addressID' => 'required'
+                'addressID' => 'required',
+                'email' => [
+                    'required',
+                    'string',
+                    'email',
+                    'max:255',
+                    Rule::unique('users')->ignore($user->id),
+                ]
             ]
         );
         if ($validator->getData()->success) {
-            $emailArray = User::all()->pluck('email')->toArray();
-            if (in_array($request->email, $emailArray)) {
-                return response()->json(['message' => 'email already used'], 400);
-            }
+
             $i = $validator->getData(true);
             if ($request->password != null)
                 $request['password'] = Hash::make($request->password);
