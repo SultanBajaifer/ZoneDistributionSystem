@@ -64,7 +64,7 @@ class CenterController extends Controller
                     'string',
                     'email',
                     'max:255',
-                    Rule::unique('users'),
+                    Rule::unique('users', 'email'),
                 ]
 
             ]
@@ -131,7 +131,7 @@ class CenterController extends Controller
                     'string',
                     'email',
                     'max:255',
-                    Rule::unique('users')->ignore($user->id),
+                    Rule::unique('users', 'email')->ignore($user->id),
                 ]
             ]
         );
