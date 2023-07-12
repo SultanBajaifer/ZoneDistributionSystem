@@ -12,6 +12,7 @@
         "bacon/bacon-qr-code": "^2.0",
         "endroid/qr-code": "^4.8",
         "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "^2.7",
         "laravel/framework": "^9.0",
         "laravel/passport": "^11.8",
         "laravel/sanctum": "^2.14",

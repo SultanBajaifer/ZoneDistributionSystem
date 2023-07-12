@@ -9,6 +9,7 @@ use Endroid\QrCode\ErrorCorrectionLevel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Intervention\Image\ImageManagerStatic as Image;
 use Picqer\Barcode\BarcodeGeneratorJPG;
 use Response;
 use App\Http\Resources\RecipientDetaile as RecipientDetaileResource;
@@ -85,8 +86,11 @@ class RecipientDetaileController extends Controller
         if ($validator->getData()->success) {
 
             $i = $validator->getData(true);
+            $image = Image::make($request->file('image'));
+            $stream = $image->stream();
+            dd($stream);
             // Generate a unique barcode number for the new user
-            $request->merge(['barcode' => $this->Barcode()]);
+            $request->merge(['barcode' => $this->Barcode(), 'image' => $stream]);
             $recipient = RecipientDetaileResource::make(
                 RecipientDetaile::create($request->all())
             );
