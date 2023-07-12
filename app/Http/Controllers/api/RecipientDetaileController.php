@@ -8,6 +8,7 @@ use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\ErrorCorrectionLevel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Picqer\Barcode\BarcodeGeneratorJPG;
 use Response;
 use App\Http\Resources\RecipientDetaile as RecipientDetaileResource;
@@ -72,7 +73,10 @@ class RecipientDetaileController extends Controller
                 "addressID" => 'required',
                 "averageSalary" => 'required',
                 "workFor" => 'required',
-                "passportNum" => 'required',
+                "passportNum" => [
+                    "required",
+                    Rule::unique('RecipientDetailes', 'passportNum')
+                ],
                 "socialState" => 'required',
                 "residentType" => 'required',
                 "image" => 'required',
@@ -144,7 +148,10 @@ class RecipientDetaileController extends Controller
                 "addressID" => 'required',
                 "averageSalary" => 'required',
                 "workFor" => 'required',
-                "passportNum" => 'required',
+                "passportNum" => [
+                    "required",
+                    Rule::unique('RecipientDetailes', 'passportNum')->ignore($id)
+                ],
                 "socialState" => 'required',
                 "residentType" => 'required',
                 "image" => 'required',
