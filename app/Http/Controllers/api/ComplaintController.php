@@ -60,7 +60,6 @@ class ComplaintController extends Controller
                 'complainterName' => $request->complainterName,
                 'discription' => $request->discription,
                 'email' => $request->email,
-                'date' => date('Y-m-d H:i:s'),
                 'userID' => $admin->id
             ]));
             $email = $request->only('email');

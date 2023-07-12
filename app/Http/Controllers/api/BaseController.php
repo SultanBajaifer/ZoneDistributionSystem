@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\DistributionRecord;
+use App\Models\RecipientDetaile;
 use Illuminate\Http\Request;
+use App\Http\Resources\RecipientDetaile as RecipientDetailesResource;
+use App\Http\Resources\DistributionRecord as DistributionRecordResource;
 
 
 class BaseController extends Controller
@@ -71,6 +75,15 @@ class BaseController extends Controller
             $searchAscOrDesc,
         );
         return response()->json($filter, 200);
+    }
+    public function home()
+    {
+        $recipients = RecipientDetailesResource::collection(RecipientDetaile::all()->sortByDesc('created_at')->take(8));
+        $distributionRecords = DistributionRecordResource::collection(DistributionRecord::all()->sortByDesc('created_at')->take(8));
+        return response()->json([
+            'recipients' => $recipients,
+            'distributionRecord' => $distributionRecords
+        ], 200);
     }
     public function sendResponse($result, $message)
     {

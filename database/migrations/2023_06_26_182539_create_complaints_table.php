@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->string('complainterName', 30)->nullable();
             $table->string('discription', 353)->nullable();
             $table->integer('userID')->index('userID');
-            $table->dateTime('date')->nullable();
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable();
             $table->string('email', 22)->nullable();

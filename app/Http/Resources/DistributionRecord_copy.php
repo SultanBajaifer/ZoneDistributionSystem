@@ -16,9 +16,14 @@ class DistributionRecord_copy extends JsonResource
      */
     public function toArray($request)
     {
+        if ($this->recrptionDate != null) {
+            $date = date_format($this->recrptionDate, 'Y-m-d');
+        } else {
+            $date = '0000-00-00';
+        }
         return [
             'id' => $this->id,
-            'recrptionDate' => $this->recrptionDate,
+            'recrptionDate' => $date,
             'state' => $this->state,
             'recipientListID' => $this->recipientListID,
             'recipientName' => $this->recipientName,

@@ -145,14 +145,13 @@ class RecipientsListController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $list = RecipientsList::findOrFail($id);
         $validator = $this->validate(
             $request,
             [
                 "name" => [
                     "required",
                     "string",
-                    Rule::unique('recipientslist', 'name')->ignore($list->id)
+                    Rule::unique('recipientslist', 'name')->ignore($id)
                 ],
                 "note" => 'required'
 
@@ -160,24 +159,27 @@ class RecipientsListController extends Controller
         );
 
         if ($validator->getData()->success) {
+            $list = RecipientsList::findOrFail($id);
             $i = $validator->getData(true);
             $RecipientList = RecipientsListResource::make($list);
             if ($RecipientList->is_send == 0) {
                 $RecipientList->update($request->except('recipients'));
                 $RecipientList->Recipients()->detach();
-                foreach ($request->recipients as $recipient) {
-                    $RecipientList->Recipients()->attach(
-                        $recipient[
-                            'recipientID'],
-                        [
-                            'recipientName' => RecipientDetaile::findOrFail($recipient['recipientID'])->name,
-                            "distriputionPointName" => $RecipientList->distributionPoint->name,
-                            "distriputerName" => $RecipientList->distributionPoint->name,
-                            "listName" => $RecipientList->name,
-                            'packageName' => Package::findOrFail($recipient['packageID'])->name,
-                            'packageID' => $recipient['packageID']
-                        ]
-                    );
+                if ($request->recipients != null) {
+                    foreach ($request->recipients as $recipient) {
+                        $RecipientList->Recipients()->attach(
+                            $recipient[
+                                'recipientID'],
+                            [
+                                'recipientName' => RecipientDetaile::findOrFail($recipient['recipientID'])->name,
+                                "distriputionPointName" => $RecipientList->distributionPoint->name,
+                                "distriputerName" => $RecipientList->distributionPoint->name,
+                                "listName" => $RecipientList->name,
+                                'packageName' => Package::findOrFail($recipient['packageID'])->name,
+                                'packageID' => $recipient['packageID']
+                            ]
+                        );
+                    }
                 }
                 $i['message'] = "Recipient List Updated Succefully";
                 $i['list'] = $RecipientList;

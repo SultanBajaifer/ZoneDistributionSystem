@@ -94,6 +94,7 @@ Route::group([
         'store'
     ]);
     Route::get('search', 'api\BaseController@querySearch');
+    Route::get('home', 'api\BaseController@home');
     Route::get('download/{id}', 'api\DistributerController@downloadList');
     Route::post('upload', 'api\DistributerController@UploadList');
     Route::post('sendList/{id}', 'api\CenterController@SendList');

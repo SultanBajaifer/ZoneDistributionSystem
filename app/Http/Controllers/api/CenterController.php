@@ -119,7 +119,6 @@ class CenterController extends Controller
      */
     public function update($id, Request $request)
     {
-        $user = User::findOrFail($id);
         $validator = $this->validate(
             $request,
             [
@@ -131,7 +130,7 @@ class CenterController extends Controller
                     'string',
                     'email',
                     'max:255',
-                    Rule::unique('users', 'email')->ignore($user->id),
+                    Rule::unique('users', 'email')->ignore($id),
                 ]
             ]
         );
