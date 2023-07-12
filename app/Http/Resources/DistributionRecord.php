@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use DateTime;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Package as PackageResource;
 
@@ -17,7 +18,8 @@ class DistributionRecord extends JsonResource
     public function toArray($request)
     {
         if ($this->recrptionDate != null) {
-            $date = date_format($this->recrptionDate, 'Y-m-d');
+            $dateTime = new DateTime($this->recrptionDate);
+            $date = $dateTime->format('Y-m-d');
         } else {
             $date = '0000-00-00';
         }
