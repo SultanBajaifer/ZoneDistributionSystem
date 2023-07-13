@@ -92,7 +92,7 @@ class RecipientsListController extends Controller
                 ],
                 "note" => 'required',
                 "distriputionPointID" => 'required',
-                "recipients" => 'required|array',
+                "recipients" => ['required', 'array'],
 
             ]
         );
@@ -153,7 +153,8 @@ class RecipientsListController extends Controller
                     "string",
                     Rule::unique('recipientslist', 'name')->ignore($id)
                 ],
-                "note" => 'required'
+                "note" => 'required',
+                "recipients" => ['required', 'array'],
 
             ]
         );

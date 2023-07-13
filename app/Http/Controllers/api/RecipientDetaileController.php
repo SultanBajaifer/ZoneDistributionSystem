@@ -86,11 +86,9 @@ class RecipientDetaileController extends Controller
         if ($validator->getData()->success) {
 
             $i = $validator->getData(true);
-            $image = Image::make($request->file('image'));
-            $stream = $image->stream();
-            dd($stream);
+
             // Generate a unique barcode number for the new user
-            $request->merge(['barcode' => $this->Barcode(), 'image' => $stream]);
+            $request->merge(['barcode' => $this->Barcode()]);
             $recipient = RecipientDetaileResource::make(
                 RecipientDetaile::create($request->all())
             );
