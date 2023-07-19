@@ -98,6 +98,7 @@ Route::group([
     Route::get('download/{id}', 'api\DistributerController@downloadList');
     Route::post('upload', 'api\DistributerController@UploadList');
     Route::post('sendList/{id}', 'api\CenterController@SendList');
+    Route::put('updatePassword/{id}', 'api\CenterController@updatePassword');
     Route::post('complexStore', 'api\RecipientsListController@complexStore');
     Route::get(
         'list/{id}/records',

@@ -28,14 +28,17 @@ class UserController extends Controller
     }
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $loginField = filter_var($request->input('email'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $credentials = [
+            $loginField => $request->input('email'),
+            'password' => $request->input('password')
+        ];
 
         if (Auth::attempt($credentials)) {
             $AccessToken = Auth::user()->createToken('Access Token')->accessToken;
 
             return Response([
-                'user' => UserResource::make(Auth::user())
-                ,
+                'user' => UserResource::make(Auth::user()),
                 'Access Token' => $AccessToken
             ]);
         } else {
@@ -44,5 +47,4 @@ class UserController extends Controller
             ], 401);
         }
     }
-
 }
