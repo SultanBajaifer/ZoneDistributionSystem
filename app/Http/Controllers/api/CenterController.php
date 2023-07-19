@@ -60,7 +60,9 @@ class CenterController extends Controller
             $request,
             [
                 'name' => 'required',
-                'userName' => 'required',
+                'userName' => [
+                    'required', Rule::unique('users', 'userName'),
+                ],
                 'password' => 'required',
                 'email' => [
                     'required',
@@ -126,7 +128,9 @@ class CenterController extends Controller
             $request,
             [
                 'name' => 'required',
-                'userName' => 'required',
+                'userName' => [
+                    'required', Rule::unique('users', 'userName')->ignore($id),
+                ],
                 'addressID' => 'required',
                 'email' => [
                     'required',
