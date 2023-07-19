@@ -15,6 +15,7 @@ use Response;
 use App\Http\Resources\RecipientDetaile as RecipientDetaileResource;
 use Picqer\Barcode\BarcodeGenerator;
 use Picqer\Barcode\BarcodeGeneratorPNG;
+use Spatie\MediaLibrary;
 use Str;
 
 class RecipientDetaileController extends Controller
@@ -40,7 +41,7 @@ class RecipientDetaileController extends Controller
 
         $random +=
             $n;
-        $barcodeNumber = 'RECIPIENT' . str_pad($random + 1, 8, '0', STR_PAD_BOTH);
+        $barcodeNumber = str_pad($random + 1, 8, '0', STR_PAD_BOTH);
         if (!in_array($barcodeNumber, $barcodeArray)) {
             return $barcodeNumber;
         }
@@ -92,6 +93,10 @@ class RecipientDetaileController extends Controller
             $recipient = RecipientDetaileResource::make(
                 RecipientDetaile::create($request->all())
             );
+            $last_recipient = RecipientDetaile::latest()->first();
+            $last_recipient->addMedia($request->file('image'))
+                ->toMediaCollection();
+
 
             // $generator = new BarcodeGeneratorJPG();
 

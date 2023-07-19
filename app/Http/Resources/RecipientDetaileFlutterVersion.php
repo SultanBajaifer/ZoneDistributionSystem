@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\DistributionRecord as DistributionRecordResource;
 // use App\Http\Resources\RecipientList as RecipientListResource;
 use App\Models\RecipientsList as RecipientListModel;
+use Intervention\Image\Facades\Image;
 
 
 
@@ -29,6 +30,16 @@ class RecipientDetaileFlutterVersion extends JsonResource
      */
     public function toArray($request)
     {
+        $recipient = $this->recipientDetails;
+        $mediaItems = $this->recipientDetails->getMedia()->first();
+        if ($mediaItems != null) {
+            # code...
+            $path = $mediaItems->getPath();
+            $stream = Image::make($path)->stream('jpg', 60);
+            $image = base64_encode($stream);
+        } else {
+            $image = '';
+        }
 
         return [
             'id' => $this->id,
@@ -44,7 +55,7 @@ class RecipientDetaileFlutterVersion extends JsonResource
             'passportNum' => $this->passportNum,
             'socialStatus' => $this->socialStatus,
             'residentType' => $this->residentType,
-            'image' => $this->MyListName,
+            'image' => $image,
             "Records" => DistributionRecordResource::collection($this->distriputionRecords)
 
 

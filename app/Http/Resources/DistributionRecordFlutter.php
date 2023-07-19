@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Package as PackageResource;
+use Intervention\Image\Facades\Image;
 
 
 class DistributionRecordFlutter extends JsonResource
@@ -16,11 +17,19 @@ class DistributionRecordFlutter extends JsonResource
      */
     public function toArray($request)
     {
-        $recipient = $this->recipientDetails;
         $this->recrptionDate == null
             ? $recrptionDate = "0000-00-00"
             : $recrptionDate = $this->recrptionDate;
-
+        $recipient = $this->recipientDetails;
+        $mediaItems = $this->recipientDetails->getMedia()->first();
+        if ($mediaItems != null) {
+            # code...
+            $path = $mediaItems->getPath();
+            $stream = Image::make($path)->stream('jpg', 60);
+            $image = base64_encode($stream);
+        } else {
+            $image = '';
+        }
 
 
         return [
@@ -28,6 +37,7 @@ class DistributionRecordFlutter extends JsonResource
             'recipientName' => $recipient->name,
             'recrptionDate' => $recrptionDate,
             'barcode' => $recipient->barcode,
+            'phoneNum' => $recipient->phoneNum,
             'familyCount' => $recipient->familyCount,
             'birthday' => $recipient->birthday,
             'averageSalary' => $recipient->averageSalary,
@@ -36,6 +46,7 @@ class DistributionRecordFlutter extends JsonResource
             "socialState" => $recipient->socialState,
             "residentType" => $recipient->residentType,
             'pacakgeName' => $this->packageName,
+            'image' => $image,
             "recordID" => $this->id,
 
         ];

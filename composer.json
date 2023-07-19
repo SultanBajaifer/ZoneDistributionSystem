@@ -18,7 +18,8 @@
         "laravel/passport": "^11.8",
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
-        "picqer/php-barcode-generator": "^2.2"
+        "picqer/php-barcode-generator": "^2.2",
+        "spatie/laravel-medialibrary": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
