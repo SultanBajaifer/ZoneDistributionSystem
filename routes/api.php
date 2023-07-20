@@ -79,41 +79,48 @@ Route::group([
     //     'RelationshipsController@recipientDetailsRecipientsList'
     // );
 
-    Route::apiResource('users', 'Api\CenterController')->only([
-        'index',
-        'show',
-        'store',
-        'update',
-        'destroy'
-    ]);
+    Route::group(['middleware' => 'distributer'], function () {
+        Route::get('download/{id}', 'api\DistributerController@downloadList');
+        Route::post('upload', 'api\DistributerController@UploadList');
+    });
+    Route::group(['middleware' => 'center'], function () {
 
-    // Route::apiResource('users', UserController::class);
-    Route::apiResource('complaints', api\ComplaintController::class)->only([
-        'index',
-        'show',
-        'store'
-    ]);
-    Route::get('search', 'api\BaseController@querySearch');
-    Route::get('home', 'api\BaseController@home');
-    Route::get('download/{id}', 'api\DistributerController@downloadList');
-    Route::post('upload', 'api\DistributerController@UploadList');
-    Route::post('sendList/{id}', 'api\CenterController@SendList');
-    Route::put('updatePassword/{id}', 'api\CenterController@updatePassword');
-    Route::post('complexStore', 'api\RecipientsListController@complexStore');
-    Route::get(
-        'list/{id}/records',
-        'api\RecipientsListController@recipientListRecipients'
-    );
-    Route::apiResource('items', api\ItemController::class);
-    Route::apiResource('addresses', api\AddressController::class);
-    Route::apiResource('packages', api\PackageController::class);
-    Route::apiResource('distributionPoint', api\DistributionPointController::class);
-    Route::apiResource('recipientDetailes', api\RecipientDetaileController::class);
-    Route::apiResource('recipientsList', api\RecipientsListController::class);
-    Route::apiResource('distributionRecord', api\DistributionRecordController::class)->only([
-        'index',
-        'show'
-    ]);
+        Route::apiResource('users', 'Api\CenterController')->only([
+            'index',
+            'show',
+            'store',
+            'update',
+            'destroy'
+        ]);
+
+        // Route::apiResource('users', UserController::class);
+        Route::apiResource('complaints', api\ComplaintController::class)->only([
+            'index',
+            'show',
+        ]);
+
+        Route::get('search', 'api\BaseController@querySearch');
+        Route::get('home', 'api\BaseController@home');
+        Route::post('sendList/{id}', 'api\CenterController@SendList');
+        Route::put('updatePassword/{id}', 'api\CenterController@updatePassword');
+        Route::post('complexStore', 'api\RecipientsListController@complexStore');
+        Route::get(
+            'list/{id}/records',
+            'api\RecipientsListController@recipientListRecipients'
+        );
+        Route::apiResource('items', api\ItemController::class);
+        Route::apiResource('addresses', api\AddressController::class);
+        Route::apiResource('packages', api\PackageController::class);
+        Route::apiResource('distributionPoint', api\DistributionPointController::class);
+        Route::apiResource('recipientDetailes', api\RecipientDetaileController::class);
+        Route::apiResource('recipientsList', api\RecipientsListController::class);
+        Route::apiResource('distributionRecord', api\DistributionRecordController::class)->only([
+            'index',
+            'show'
+        ]);
+    });
+
+
     // Route::put('users/{$id}', function ($id, Request $request) {
 //     $user = User::find($id);
 //     $user->update($request->all());
@@ -127,5 +134,9 @@ Route::group([
 
 
 });
+Route::apiResource('complaints', api\ComplaintController::class)->only([
+    'store',
+]);
 ##  Login Routse    ###
-Route::any('login', 'api\UserController@login')->name('login');
+Route::any('login', 'api\DistributerController@login')->name('login');
+Route::any('webLogin', 'api\CenterController@login')->name('webLogin');

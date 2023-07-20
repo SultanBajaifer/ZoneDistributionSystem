@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\RecipientsList;
 use App\Models\User;
+use Auth;
 use Hash;
 use Illuminate\Http\Request;
 use App\Http\Resources\User as UserResource;
@@ -17,6 +18,33 @@ use Validator;
 
 class CenterController extends Controller
 {
+    public function login(Request $request)
+    {
+        $loginField = filter_var($request->input('email'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $credentials = [
+            $loginField => $request->input('email'),
+            'password' => $request->input('password')
+        ];
+
+
+        if (Auth::attempt($credentials)) {
+            // dd(auth()->user());
+            if (auth()->user()->userType == 1) {
+                $AccessToken = Auth::user()->createToken('Access Token')->accessToken;
+
+                return Response([
+                    'user' => UserResource::make(Auth::user()),
+                    'Access Token' => $AccessToken
+                ]);
+            } else {
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
+        } else {
+            return response()->json([
+                'message' => 'Invalid credentials or Token'
+            ], 401);
+        }
+    }
     /**
      * Display a listing of the resource.
      *

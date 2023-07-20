@@ -7,6 +7,7 @@ use App\Models\Complaint;
 use App\Mail\Complaints as ComplaintMail;
 use App\Models\User;
 use DB;
+use Http;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -64,15 +65,32 @@ class ComplaintController extends Controller
             ]));
             $email = $request->only('email');
             if ($Complaint) {
-                Mail::to($email)->send(new ComplaintMail($request->only(['email', 'complainterName'])));
-                $i = $validator->getData(true);
-                $i['message'] = 'Thank you for feedback, please check your inbox';
-                $i['new value'] = $Complaint;
-                $validator->setData($i);
-                return $validator;
+                if ($this->is_connected()) {
+
+                    Mail::to($email)->send(new ComplaintMail($request->only(['email', 'complainterName'])));
+                    $i = $validator->getData(true);
+                    return redirect()->back();
+
+                } else {
+                    return redirect()->back();
+
+                }
             }
         }
         return $validator;
+
+    }
+    function is_connected()
+    {
+        $connected = @fsockopen("www.google.com", 80);
+        //website, port  (try 80 or 443)
+        if ($connected) {
+            $is_conn = true; //action when connected
+            fclose($connected);
+        } else {
+            $is_conn = false; //action in connection failure
+        }
+        return $is_conn;
 
     }
 
