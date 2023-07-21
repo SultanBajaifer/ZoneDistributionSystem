@@ -20,15 +20,12 @@ class RecipientDetaile extends JsonResource
      */
     public function toArray($request)
     {
-        $recipient = $this->recipientDetails;
-        $mediaItems = $this->recipientDetails->getMedia()->first();
-        if ($mediaItems != null) {
-            # code...
+        $image = '';
+        if ($this->hasMedia()) {
+            $mediaItems = $this->getMedia()->first();
             $path = $mediaItems->getPath();
             $stream = Image::make($path)->stream('jpg', 60);
             $image = base64_encode($stream);
-        } else {
-            $image = '';
         }
         return [
             'id' => $this->id,
@@ -46,8 +43,6 @@ class RecipientDetaile extends JsonResource
             'addresses' => AddressResource::make($this->Address),
             // 'RecipientsList' => RecipientsListResource::collection($this->RecipientsList),
             "Records" => DistributionRecordResource::collection($this->distriputionRecords),
-
-
         ];
     }
 }
