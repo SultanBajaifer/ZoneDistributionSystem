@@ -111,7 +111,8 @@ Route::group([
         Route::apiResource('addresses', api\AddressController::class);
         Route::apiResource('packages', api\PackageController::class);
         Route::apiResource('distributionPoint', api\DistributionPointController::class);
-        Route::apiResource('recipientDetailes', api\RecipientDetaileController::class);
+        Route::apiResource('recipientDetailes', api\RecipientDetaileController::class)->except('update');
+        Route::post('recipientDetailes/{id}', 'api\RecipientDetaileController@update');
         Route::apiResource('recipientsList', api\RecipientsListController::class);
         Route::apiResource('distributionRecord', api\DistributionRecordController::class)->only([
             'index',

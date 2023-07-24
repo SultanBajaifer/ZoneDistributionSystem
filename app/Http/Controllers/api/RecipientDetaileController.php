@@ -151,13 +151,13 @@ class RecipientDetaileController extends Controller
                 "name" => "required",
                 "phoneNum" => 'required',
                 "familyCount" => 'required',
-                "birthday" => "required|date",
+                "birthday" => "required",
                 "addressID" => 'required',
                 "averageSalary" => 'required',
                 "workFor" => 'required',
                 "passportNum" => [
                     "required",
-                    Rule::unique('RecipientDetailes', 'passportNum')
+                    Rule::unique('RecipientDetailes', 'passportNum')->ignore($id)
                 ],
                 "socialState" => 'required',
                 "residentType" => 'required',
