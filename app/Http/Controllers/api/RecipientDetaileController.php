@@ -90,7 +90,17 @@ class RecipientDetaileController extends Controller
             // Generate a unique barcode number for the new user
             $request->merge(['barcode' => $this->Barcode()]);
             $recipient = RecipientDetaileResource::make(
-                RecipientDetaile::create($request->all())
+                RecipientDetaile::create($request->only([
+                    'name',
+                    'phoneNum',
+                    'familyCount',
+                    'birthday',
+                    'addressID',
+                    'workFor',
+                    'passportNum',
+                    'socialState',
+                    'residentType'
+                ]))
             );
             $last_recipient = RecipientDetaile::latest()->first();
             $last_recipient->addMedia($request->file('image'))
@@ -165,7 +175,17 @@ class RecipientDetaileController extends Controller
         if ($validator->getData()->success) {
             $i = $validator->getData(true);
             $RecipientDetaile = RecipientDetaile::findOrFail($id);
-            $RecipientDetaile->update($request->all());
+            $RecipientDetaile->update($request->only([
+                'name',
+                'phoneNum',
+                'familyCount',
+                'birthday',
+                'addressID',
+                'workFor',
+                'passportNum',
+                'socialState',
+                'residentType'
+            ]));
 
             // Replace the old image with the new one
             if ($request->hasFile('image')) {
