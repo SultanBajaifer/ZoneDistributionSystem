@@ -157,7 +157,7 @@ class RecipientDetaileController extends Controller
                 "workFor" => 'required',
                 "passportNum" => [
                     "required",
-                    Rule::unique('RecipientDetailes', 'passportNum')->ignore($id)
+                    Rule::unique('RecipientDetailes', 'passportNum')
                 ],
                 "socialState" => 'required',
                 "residentType" => 'required',
@@ -166,10 +166,18 @@ class RecipientDetaileController extends Controller
         );
         if ($validator->getData()->success) {
             $i = $validator->getData(true);
-            $RecipientDetaile = new RecipientDetaileResource(RecipientDetaile::findOrFail($id));
+            $RecipientDetaile = RecipientDetaile::findOrFail($id);
             $RecipientDetaile->update($request->all());
+
+            // Replace the old image with the new one
+            if ($request->hasFile('image')) {
+                $RecipientDetaile->clearMediaCollection();
+                $RecipientDetaile->addMedia($request->file('image'))
+                    ->toMediaCollection();
+            }
+
             $i['message'] = "Recipient Details Updated Succefully";
-            $i['new value'] = $RecipientDetaile;
+            $i['new value'] = new RecipientDetaileResource($RecipientDetaile);
             $validator->setData($i);
             return $validator;
         }
