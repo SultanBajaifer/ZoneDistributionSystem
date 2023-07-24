@@ -102,7 +102,6 @@ Route::group([
         Route::get('search', 'api\BaseController@querySearch');
         Route::get('home', 'api\BaseController@home');
         Route::post('sendList/{id}', 'api\CenterController@SendList');
-        Route::put('updatePassword/{id}', 'api\CenterController@updatePassword');
         Route::post('complexStore', 'api\RecipientsListController@complexStore');
         Route::get(
             'list/{id}/records',
@@ -119,6 +118,7 @@ Route::group([
             'show'
         ]);
     });
+    Route::put('updatePassword/{id}', 'api\userController@updatePassword');
 
 
     // Route::put('users/{$id}', function ($id, Request $request) {

@@ -69,10 +69,11 @@ class ComplaintController extends Controller
 
                     Mail::to($email)->send(new ComplaintMail($request->only(['email', 'complainterName'])));
                     $i = $validator->getData(true);
-                    return redirect()->back();
+                    return redirect()->route('thinksForComplaint');
+                    ;
 
                 } else {
-                    return redirect()->back();
+                    return redirect()->route('thinksForComplaint');
 
                 }
             }

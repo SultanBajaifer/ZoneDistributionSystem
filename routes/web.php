@@ -29,6 +29,9 @@ Route::get('complaintList', function () {
 
     return view('complaintList', ['Complaints' => $Complaints]);
 });
+Route::get('thinksForComplaint', function () {
+    return view('thinksForComplaint');
+})->name('thinksForComplaint');
 
 Route::get('responseTocomplaint/{id}', function ($id) {
     $complaint = Complaint::findOrFail($id);

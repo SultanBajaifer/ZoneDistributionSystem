@@ -216,34 +216,5 @@ class CenterController extends Controller
         return response()->json(["Success" => "True", "Message" => "list is send"], 200);
     }
 
-    public function updatePassword(Request $request, int $id)
-    {
-        if (auth()->user()->userType == 1 || auth()->user()->id == $id) {
-            $user = User::findOrFail($id);
-            $validator = Validator::make($request->all(), [
-                'current_password' => [
-                    'required',
-                    new PasswordMatch($user->password)
-                ],
-                'password' => ['required', 'string']
-            ]);
 
-            if ($validator->fails()) {
-                return response()->json([
-                    'errors' => $validator->errors()
-                ], 422);
-            }
-
-            // Update the user's password
-            $user->password = Hash::make($request->input('password'));
-            $user->save();
-
-            return response()->json([
-                'message' => 'Password updated successfully',
-            ]);
-
-        } else {
-            return response()->json(['message' => 'Forbbiden'], 403);
-        }
-    }
 }
