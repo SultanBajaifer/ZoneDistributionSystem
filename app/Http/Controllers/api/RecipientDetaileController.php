@@ -80,8 +80,7 @@ class RecipientDetaileController extends Controller
                     Rule::unique('RecipientDetailes', 'passportNum')
                 ],
                 "socialState" => 'required',
-                "residentType" => 'required',
-                "image" => 'required',
+                "residentType" => 'required'
             ]
         );
         if ($validator->getData()->success) {
@@ -160,8 +159,7 @@ class RecipientDetaileController extends Controller
                     Rule::unique('RecipientDetailes', 'passportNum')->ignore($id)
                 ],
                 "socialState" => 'required',
-                "residentType" => 'required',
-                "image" => 'required',
+                "residentType" => 'required'
             ]
         );
         if ($validator->getData()->success) {
