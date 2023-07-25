@@ -96,6 +96,8 @@ class RecipientDetaileController extends Controller
                     'familyCount',
                     'birthday',
                     'addressID',
+                    'averageSalary',
+                    'barcode',
                     'workFor',
                     'passportNum',
                     'socialState',
@@ -181,6 +183,7 @@ class RecipientDetaileController extends Controller
                 'familyCount',
                 'birthday',
                 'addressID',
+                "averageSalary",
                 'workFor',
                 'passportNum',
                 'socialState',
@@ -188,7 +191,7 @@ class RecipientDetaileController extends Controller
             ]));
 
             // Replace the old image with the new one
-            if ($request->hasFile('image')) {
+            if ($request->hasFile('image') & $request->file('image') != null) {
                 $RecipientDetaile->clearMediaCollection();
                 $RecipientDetaile->addMedia($request->file('image'))
                     ->toMediaCollection();
