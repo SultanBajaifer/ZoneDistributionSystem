@@ -78,7 +78,9 @@ Route::group([
     //     'recipientDetails/{id}/recipientsList',
     //     'RelationshipsController@recipientDetailsRecipientsList'
     // );
-
+    Route::apiResource('users', 'Api\CenterController')->only([
+        'update'
+    ]);
     Route::group(['middleware' => 'distributer'], function () {
         Route::get('download/{id}', 'api\DistributerController@downloadList');
         Route::post('upload', 'api\DistributerController@UploadList');
@@ -89,7 +91,6 @@ Route::group([
             'index',
             'show',
             'store',
-            'update',
             'destroy'
         ]);
 
