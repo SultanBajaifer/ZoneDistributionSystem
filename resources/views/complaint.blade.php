@@ -17,6 +17,18 @@
     .about {
         font-size: 15px;
     }
+
+    #timer {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    #timer span {
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
 </style>
 
 <body>
@@ -47,32 +59,47 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="label" for="name">Full Name</label>
-                                                    <input type="text" class="form-control" name="complainterName"
-                                                        id="name" placeholder="Name">
+                                                    <input required type="text" class="form-control"
+                                                        name="complainterName" id="name" placeholder="Name">
                                                 </div>
                                             </div>
+                                            <input type="hidden" name="timestamp" value="{{ time() }}">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="label" for="email">Email Address</label>
-                                                    <input type="email" class="form-control" name="email" id="email"
-                                                        placeholder="Email">
+                                                    <input required type="email" class="form-control" name="email"
+                                                        id="email" placeholder="Email">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" style="display: none">
+                                                <div class="form-group">
+                                                    <label class="label" for="username">User
+                                                        name</label>
+                                                    <input type="text" class="form-control" name="username"
+                                                        id="username" placeholder="username">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="label" for="#">Message</label>
-                                                    <textarea name="discription" class="form-control" id="message"
-                                                        cols="30" rows="4" placeholder="Message"></textarea>
+                                                    <textarea required name="discription" class="form-control"
+                                                        id="message" cols="30" rows="4"
+                                                        placeholder="Message"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <input type="submit" value="Send Complaint" class="btn btn-primary">
+                                            <div class="col-md-12 d-flex justify-content-between">
+                                                <div>
+                                                    <input type="submit" disabled id="submit-btn" value="Send Complaint"
+                                                        class="btn btn-primary">
                                                     <div class="submitting"></div>
+                                                </div>
+                                                <div id="timer">
+                                                    <span id="minutes">01</span>:<span id="seconds">00</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
+
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-5 d-flex align-items-stretch">
@@ -124,6 +151,33 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.validate.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        const countdown = document.getElementById('timer');
+const minutesSpan = document.getElementById('minutes');
+const secondsSpan = document.getElementById('seconds');
+const submitBtn = document.getElementById('submit-btn');
+
+let totalSeconds = 60;
+let timerInterval = null;
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+    totalSeconds--;
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    minutesSpan.textContent = minutes.toString().padStart(2, '0');
+    secondsSpan.textContent = seconds.toString().padStart(2, '0');
+
+    if (totalSeconds <= 0) {
+      clearInterval(timerInterval);
+      submitBtn.disabled = false;
+    }
+  }, 1000);
+}
+
+startTimer();
+    </script>
 
 </body>
 

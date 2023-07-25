@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ContactFormRequest;
 use App\Models\Complaint;
 use App\Mail\Complaints as ComplaintMail;
 use App\Models\User;
@@ -46,12 +47,14 @@ class ComplaintController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $validator = $this->validate(
             $request,
             [
                 'complainterName' => 'required',
                 'discription' => 'required',
                 'email' => 'required|email',
+                'username' => ['nullable', new \App\Rules\Honeypot],
             ]
         );
         if ($validator->getData()->success) {
