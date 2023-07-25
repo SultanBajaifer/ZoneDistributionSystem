@@ -194,7 +194,7 @@ class RecipientDetaileController extends Controller
             ]));
 
             // Replace the old image with the new one
-            if ($request->hasFile('image') & $request->file('image') != null != null && $request->file('image') != '') {
+            if ($request->hasFile('image') & $request->file('image') != null && $request->file('image') != '') {
                 $RecipientDetaile->clearMediaCollection();
                 $RecipientDetaile->addMedia($request->file('image'))
                     ->toMediaCollection();
