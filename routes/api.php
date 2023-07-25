@@ -78,12 +78,13 @@ Route::group([
     //     'recipientDetails/{id}/recipientsList',
     //     'RelationshipsController@recipientDetailsRecipientsList'
     // );
-    Route::put('users/{id}', 'Api\CenterController')->only([
+    Route::apiResource('users', 'Api\CenterController')->only([
         'update'
     ]);
     Route::group(['middleware' => 'distributer'], function () {
         Route::get('download/{id}', 'api\DistributerController@downloadList');
         Route::post('upload', 'api\DistributerController@UploadList');
+        Route::get('refreshPoints', 'api\DistributerController@refreshPoints');
     });
     Route::group(['middleware' => 'center'], function () {
 

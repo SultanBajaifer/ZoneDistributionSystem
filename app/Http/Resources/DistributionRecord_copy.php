@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use DateTime;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Package as PackageResource;
+use Intervention\Image\Facades\Image;
 
 
 class DistributionRecord_copy extends JsonResource
@@ -17,6 +18,13 @@ class DistributionRecord_copy extends JsonResource
      */
     public function toArray($request)
     {
+        $image = '';
+        if ($this->recipientDetails->hasMedia()) {
+            $mediaItems = $this->recipientDetails->getMedia()->first();
+            $path = $mediaItems->getPath();
+            $stream = Image::make($path)->stream('jpg', 60);
+            $image = base64_encode($stream);
+        }
         if ($this->recrptionDate != null) {
             $dateTime = new DateTime($this->recrptionDate);
             $date = $dateTime->format('Y-m-d');
@@ -33,6 +41,7 @@ class DistributionRecord_copy extends JsonResource
             'distriputionPointName' => $this->distriputionPointName,
             'distriputerName' => $this->distriputerName,
             'recipient' => $this->recipientDetails,
+            'image' => $image,
             "package" => PackageResource::make($this->package),
 
         ];

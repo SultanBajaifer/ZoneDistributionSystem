@@ -1,6 +1,3 @@
-<a href="https://colorlib.com/wp/templates/">
-    <img src="https://colorlib.com/wp/wp-content/uploads/sites/2/colorlib-push-logo.png" alt="Colorlib logo">
-</a>
 <h1 style="text-align:center;">Thank you for Sending a Complaint!</h1>
 <p style="text-align:center;">We send a message in your email to check on you.
     wait for our responce.

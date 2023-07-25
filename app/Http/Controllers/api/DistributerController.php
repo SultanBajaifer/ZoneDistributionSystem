@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DistributionRecordFlutter as DistributionRecordResource;
 use App\Models\DistributionPoint;
+use App\Http\Resources\DistributionPoint as DistributionPointResource;
 use App\Http\Resources\User as UserResource;
 use App\Models\DistributionRecord;
 use App\Models\RecipientsList;
@@ -126,6 +127,13 @@ class DistributerController extends Controller
         } else {
             return response()->json(['message' => 'Forbbiden'], 403);
         }
+    }
+    public function refreshPoints()
+    {
+        $distributionPoints = DistributionPointResource::collection(auth()->user()->distributionPoints);
+        return response()->json([
+            'DistributionPoint' => $distributionPoints
+        ], 200);
     }
 
 

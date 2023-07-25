@@ -21,14 +21,12 @@ class DistributionRecordFlutter extends JsonResource
             ? $recrptionDate = "0000-00-00"
             : $recrptionDate = $this->recrptionDate;
         $recipient = $this->recipientDetails;
-        $mediaItems = $this->recipientDetails->getMedia()->first();
-        if ($mediaItems != null) {
-            # code...
+        $image = '';
+        if ($recipient->hasMedia()) {
+            $mediaItems = $recipient->getMedia()->first();
             $path = $mediaItems->getPath();
             $stream = Image::make($path)->stream('jpg', 60);
             $image = base64_encode($stream);
-        } else {
-            $image = '';
         }
 
 

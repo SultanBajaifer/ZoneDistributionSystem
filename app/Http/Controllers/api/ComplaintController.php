@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactFormRequest;
 use App\Models\Complaint;
 use App\Mail\Complaints as ComplaintMail;
+use App\Models\RecipientDetaile;
 use App\Models\User;
 use DB;
 use Http;
@@ -53,33 +54,38 @@ class ComplaintController extends Controller
             [
                 'complainterName' => 'required',
                 'discription' => 'required',
+                'passportNum' => 'required',
                 'email' => 'required|email',
                 'username' => ['nullable', new \App\Rules\Honeypot],
             ]
         );
         if ($validator->getData()->success) {
+            $passport = RecipientDetaile::where('passportNum', $request->input('passportNum'))->count();
+            if ($passport == 1) {
 
-            $admin = User::where('userType', 1)->first();
-            $Complaint = new ComplaintResource(Complaint::create([
-                'complainterName' => $request->complainterName,
-                'discription' => $request->discription,
-                'email' => $request->email,
-                'userID' => $admin->id
-            ]));
-            $email = $request->only('email');
-            if ($Complaint) {
-                if ($this->is_connected()) {
+                $center = User::where('userType', 1)->first();
+                $Complaint = new ComplaintResource(Complaint::create([
+                    'complainterName' => $request->complainterName,
+                    'discription' => $request->discription,
+                    'email' => $request->email,
+                    'userID' => $center->id
+                ]));
+                $email = $request->only('email');
+                if ($Complaint) {
+                    if ($this->is_connected()) {
 
-                    Mail::to($email)->send(new ComplaintMail($request->only(['email', 'complainterName'])));
-                    $i = $validator->getData(true);
-                    return redirect()->route('thinksForComplaint');
-                    ;
+                        Mail::to($email)->send(new ComplaintMail($request->only(['email', 'complainterName'])));
+                        $i = $validator->getData(true);
+                        return redirect()->route('thinksForComplaint');
+                        ;
 
-                } else {
-                    return redirect()->route('thinksForComplaint');
+                    } else {
+                        return redirect()->route('thinksForComplaint');
 
+                    }
                 }
             }
+            return redirect()->back();
         }
         return $validator;
 
@@ -88,7 +94,7 @@ class ComplaintController extends Controller
     {
         $connected = @fsockopen("www.google.com", 80);
         //website, port  (try 80 or 443)
-        if ($connected) {
+        if ($connected !== false) {
             $is_conn = true; //action when connected
             fclose($connected);
         } else {

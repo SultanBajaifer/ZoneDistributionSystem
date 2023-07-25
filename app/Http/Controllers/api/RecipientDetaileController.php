@@ -217,6 +217,7 @@ class RecipientDetaileController extends Controller
     public function destroy($id)
     {
         $RecipientDetaile = RecipientDetaile::findOrFail($id);
+        $RecipientDetaile->clearMediaCollection();
         $RecipientDetaile->delete();
         return Response::json(
             [

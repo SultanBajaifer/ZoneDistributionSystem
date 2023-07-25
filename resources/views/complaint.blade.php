@@ -63,6 +63,13 @@
                                                         name="complainterName" id="name" placeholder="Name">
                                                 </div>
                                             </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="label" for="passport">Passport</label>
+                                                    <input required type="text" class="form-control" name="passportNum"
+                                                        id="passport" placeholder="passport">
+                                                </div>
+                                            </div>
                                             <input type="hidden" name="timestamp" value="{{ time() }}">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -89,7 +96,7 @@
                                             </div>
                                             <div class="col-md-12 d-flex justify-content-between">
                                                 <div>
-                                                    <input type="submit" disabled id="submit-btn" value="Send Complaint"
+                                                    <input type="submit" id="submit-btn" value="Send Complaint"
                                                         class="btn btn-warning">
                                                     <div class="submitting"></div>
                                                 </div>
