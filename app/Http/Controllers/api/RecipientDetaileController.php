@@ -104,9 +104,12 @@ class RecipientDetaileController extends Controller
                     'residentType'
                 ]))
             );
-            $last_recipient = RecipientDetaile::latest()->first();
-            $last_recipient->addMedia($request->file('image'))
-                ->toMediaCollection();
+            if ($request->hasFile('image') & $request->file('image') != null) {
+
+                $last_recipient = RecipientDetaile::latest()->first();
+                $last_recipient->addMedia($request->file('image'))
+                    ->toMediaCollection();
+            }
 
 
             // $generator = new BarcodeGeneratorJPG();
