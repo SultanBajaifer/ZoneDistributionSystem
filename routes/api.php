@@ -78,7 +78,7 @@ Route::group([
     //     'recipientDetails/{id}/recipientsList',
     //     'RelationshipsController@recipientDetailsRecipientsList'
     // );
-    Route::apiResource('users', 'Api\CenterController')->only([
+    Route::put('users/{id}', 'Api\CenterController')->only([
         'update'
     ]);
     Route::group(['middleware' => 'distributer'], function () {
