@@ -200,6 +200,7 @@ class RecipientDetaileController extends Controller
                     ->toMediaCollection();
             }
 
+
             $i['message'] = "Recipient Details Updated Succefully";
             $i['new value'] = new RecipientDetaileResource($RecipientDetaile);
             $validator->setData($i);
