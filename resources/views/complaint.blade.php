@@ -90,7 +90,7 @@
                                             <div class="col-md-12 d-flex justify-content-between">
                                                 <div>
                                                     <input type="submit" disabled id="submit-btn" value="Send Complaint"
-                                                        class="btn btn-primary">
+                                                        class="btn btn-warning">
                                                     <div class="submitting"></div>
                                                 </div>
                                                 <div id="timer">
@@ -103,8 +103,8 @@
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-5 d-flex align-items-stretch">
-                                <div class="info-wrap bg-primary w-100 p-md-5 p-4">
-                                    <h3>About us</h3>
+                                <div class="info-wrap bg-warning w-100 p-md-5 p-4" style="color: black">
+                                    <h3 style="color: black">About us</h3>
                                     <p class="mb-4 about">Zone Distribution Managment System is built to mangae the
                                         distribution operation for anyone! company, organization, school, university or
                                         even individuals</p>
@@ -112,8 +112,8 @@
                                         <div class="icon d-flex align-items-center justify-content-center">
                                             <span class="fa fa-map-marker"></span>
                                         </div>
-                                        <div class="text pl-3">
-                                            <p class="about"><span>Address:</span> Yemen, Fouh
+                                        <div class="text pl-3" style="color: black">
+                                            <p class="about"><span style="color: black">Address:</span> Yemen, Fouh
                                             </p>
                                         </div>
                                     </div>
@@ -121,8 +121,10 @@
                                         <div class="icon d-flex align-items-center justify-content-center">
                                             <span class="fa fa-phone"></span>
                                         </div>
-                                        <div class="text pl-3">
-                                            <p class="about"><span>Phone:</span> <a href="tel://77777777">+967 7777 7777
+                                        <div class="text pl-3" style="color: black">
+                                            <p class="about" style="color: black"><span
+                                                    style="color: black">Phone:</span> <a href="tel://77777777"
+                                                    style="color: black">+967 7777 7777
                                                     77</a></p>
                                         </div>
                                     </div>
@@ -130,9 +132,11 @@
                                         <div class="icon d-flex align-items-center justify-content-center">
                                             <span class="fa fa-paper-plane"></span>
                                         </div>
-                                        <div class="text pl-3">
-                                            <p class="about"><span>Email:</span> <a
-                                                    href="mailto:{{env('MAIL_USERNAME')}}">{{env('MAIL_USERNAME')}}</a>
+                                        <div class="text pl-3" style="color: black">
+                                            <p class="about" style="color: black"><span
+                                                    style="color: black">Email:</span> <a
+                                                    href="mailto:{{env('MAIL_USERNAME')}}"
+                                                    style="color: black">{{env('MAIL_USERNAME')}}</a>
                                             </p>
                                         </div>
                                     </div>
