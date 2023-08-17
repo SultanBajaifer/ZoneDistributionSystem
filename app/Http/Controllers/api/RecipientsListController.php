@@ -174,7 +174,7 @@ class RecipientsListController extends Controller
                             [
                                 'recipientName' => RecipientDetaile::findOrFail($recipient['recipientID'])->name,
                                 "distriputionPointName" => $RecipientList->distributionPoint->name,
-                                "distriputerName" => $RecipientList->distributionPoint->name,
+                                "distriputerName" => $RecipientList->distributionPoint->user->name,
                                 "listName" => $RecipientList->name,
                                 'packageName' => Package::findOrFail($recipient['packageID'])->name,
                                 'packageID' => $recipient['packageID']

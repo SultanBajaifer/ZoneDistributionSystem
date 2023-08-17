@@ -72,20 +72,23 @@ class ComplaintController extends Controller
                 ]));
                 $email = $request->only('email');
                 if ($Complaint) {
-                    if ($this->is_connected()) {
+                    // if ($this->is_connected()) {
 
-                        Mail::to($email)->send(new ComplaintMail($request->only(['email', 'complainterName'])));
-                        $i = $validator->getData(true);
-                        return redirect()->route('thinksForComplaint');
-                        ;
+                    Mail::to($email)->send(new ComplaintMail($request->only(['email', 'complainterName'])));
+                    $i = $validator->getData(true);
+                    return redirect()->route('thinksForComplaint');
 
-                    } else {
-                        return redirect()->route('thinksForComplaint');
 
-                    }
+                    // } else {
+                    //     return redirect()->route('thinksForComplaint');
+
+
                 }
+                return redirect()->back();
+
             }
             return redirect()->back();
+
         }
         return $validator;
 

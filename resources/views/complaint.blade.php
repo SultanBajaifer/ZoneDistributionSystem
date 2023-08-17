@@ -96,7 +96,7 @@
                                             </div>
                                             <div class="col-md-12 d-flex justify-content-between">
                                                 <div>
-                                                    <input type="submit" id="submit-btn" value="Send Complaint"
+                                                    <input type="submit" disabled id="submit-btn" value="Send Complaint"
                                                         class="btn btn-warning">
                                                     <div class="submitting"></div>
                                                 </div>
